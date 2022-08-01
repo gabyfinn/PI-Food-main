@@ -26,7 +26,6 @@ export class Recipes extends Component {
           summary={recipe.summary}
           healthScore={recipe.healthScore}
           instructions={recipe.instructions}
-
         />
         
         )}

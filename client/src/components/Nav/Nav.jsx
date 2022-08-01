@@ -6,7 +6,7 @@ class Nav extends Component{
         return(
             <div>
                 <Link to={'/'}>Landing Page</Link>
-                <Link to={'/recipe/create'}>Create Recipe</Link>
+                {/*<Link to={'/recipe/create'}>Create Recipe</Link>*/}
             </div>
         );
     }
