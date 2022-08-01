@@ -12,18 +12,8 @@ export class RecipeCard extends Component {
                 RecipeCard
                 <button onClick={() => this.props.deleteHouse(this.props.id)}>x</button>
                 <Link to={`/recipes/${this.props.id}`}>
-                <h3>{this.props.title}</h3>
+                    <h3>{this.props.title}</h3>
                 </Link>
-
-               {/*  key={recipe.id}
-          id={recipe.id}
-          title={recipe.title}
-          summary={recipe.summary}
-          healthScore={recipe.healthScore}
-          instructions={recipe.instructions} */}
-                <p>summary: {this.props.summary}</p>
-                <p>healthScore:{this.props.healthScore}</p>
-                <p>instructions: {this.props.instructions}</p> 
             </div>
         );
     };

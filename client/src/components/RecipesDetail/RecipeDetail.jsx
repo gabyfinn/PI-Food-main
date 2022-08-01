@@ -14,7 +14,12 @@ const RecipeDetail = ({match}) => {
     return (
       <div>
         Recipe Detail
+        <h1>{recipe.title}</h1>
+       <div dangerouslySetInnerHTML={{ __html: recipe.summary }}/>
         
+        
+        <p>healthScore: {recipe.healthScore}</p>
+        <div dangerouslySetInnerHTML={{ __html: recipe.instructions }}/>
       </div>
     )
 }
