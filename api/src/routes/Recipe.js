@@ -97,7 +97,21 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  //let {title, summary,healthScore, instructions} =
+  let { title, summary, healthScore, instructions } = req.body;
+
+  try {
+    if (title || summary) {
+      let recipe = await Recipe.create({ title, summary, healthScore, instructions })
+      res.json(recipe);
+    } else {
+      res.status(404).send("No se ingresaron los datos obligatorios");
+    }
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+
+
+
 });
 
 
