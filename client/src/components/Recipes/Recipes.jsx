@@ -1,50 +1,59 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllRecipes } from "../../redux/actions";
 import RecipeCard from '../RecipeCard/RecipeCard';
+import Pagination from "../Pagination/Pagination";
 
-export class Recipes extends Component {
+const Recipes = () => {
+  /* export class Recipes extends Component {
+  
+    componentDidMount() {
+      /* this.recipes 
+      if(!this.recipes?.length){
+        this.props.getAllRecipes();
+        setLoading()
+      }
+    } */
+  //render() {
+  //const selectorState = useSelector((state) => state.recipes);
 
-  componentDidMount() {
-    /* this.recipes */
-    if(!this.recipes?.length){
-      this.props.getAllRecipes();
+  //const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recipesPerPage] = useState(9);
+  const dispatch = useDispatch();
+  let recipes = useSelector((state) => state.recipes);
+  console.log(recipes);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      setLoading(true);
+      dispatch(getAllRecipes());
+      setLoading(false);
     }
-    
-  }
+    fetchRecipes();
 
-  render() {
-    return (
-      <div>
-        <h3>Recipes</h3>
+  }, []);
 
-        {this.props.recipes?.map((recipe) =>
-        <RecipeCard 
-          key={recipe.id}
-          id={recipe.id}
-          title={recipe.title}
-          /* summary={recipe.summary}
-          healthScore={recipe.healthScore}
-          instructions={recipe.instructions} */
-          image={recipe.image}
-          diets= {recipe.diets}
+
+  // GET current recipes
+  console.log(recipes);
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  return (
+    <div>
+      <h3>Recipes</h3>
+        <RecipeCard
+          recipes={currentRecipes}
+          loading={loading}
         />
-        
-        )}
-      </div>
-    );
-  };
-}
-
-export const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes,
-  }
+      <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} />
+    </div>
+  );
 };
 
-export const mapDispatchToProps = (dispatch) => {
-  return {
-    getAllRecipes: () => dispatch(getAllRecipes()),
-  }
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
+export default Recipes;
