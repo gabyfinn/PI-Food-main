@@ -5,8 +5,10 @@ import { deleteRecipe } from '../../redux/actions';
 
 
 export class RecipeCard extends Component {
-    render() {
 
+    
+    render() {
+        
         return (
             <div>
                 RecipeCard
@@ -14,6 +16,14 @@ export class RecipeCard extends Component {
                 <Link to={`/recipes/${this.props.id}`}>
                     <h3>{this.props.title}</h3>
                 </Link>
+                <img src={this.props.image} alt="Imagen Receta" />
+                <ul>
+
+                    {this.props.diets?.map((diet) =>
+                       
+                       <li key={diet}>{diet}</li> 
+                    )}
+                </ul>
             </div>
         );
     };

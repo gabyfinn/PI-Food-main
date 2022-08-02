@@ -11,19 +11,55 @@ const API = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}
 //const fetch = require ('fetch-node');
 
 async function getAllRecipes() {
-  let api = await fetch(API)
-  .then(response => response.json());
-  let bd = await Recipe.findAll();
-  let con = api.results.concat(bd);
-  let resultado = con?.map(recipe => {
-    return {
-      id: recipe.id,
-      title: recipe.title,
-    }
-  });
 
-  return resultado;
-  
+  try {
+    let api = await fetch(API)
+      .then(response => response.json());
+    let bd = await Recipe.findAll();
+    let con = api.results.concat(bd);
+    let resultado = con?.map(recipe => {
+      return {
+        id: recipe.id,
+        title: recipe.title,
+        image: recipe?.image,
+        diets: recipe?.diets,
+      }
+    });
+    return resultado;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function getRecipe(id) {
+
+  try {
+    if (!isNaN(id)) {
+      console.log("Entre al llamado de la api");
+      let recipe = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
+        .then(response => response.json());
+      if (recipe) {
+        let result = {
+          id: recipe.id,
+          title: recipe.title,
+          summary: recipe.summary,
+          healthScore: recipe.healthScore,
+          instructions: recipe.instructions,
+          image: recipe?.image,
+          diets: recipe?.diets,
+        }
+        return result;
+      }
+
+
+    }
+    let result = Recipe.findByPk(id);
+
+    return result;
+
+  } catch (error) {
+    return error;
+  }
 }
 
 router.get('/', async (req, res, next) => {
@@ -33,52 +69,17 @@ router.get('/', async (req, res, next) => {
 
   let title = req.query.name;
 
-  if(title){
+  if (title) {
     let result = totalRecipes?.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
     if (result.length) {
       return res.json(result);
     }
     return res.status(404).send(`No se encontro una receta que contenga ${title}`);
-    
+
   }
 
   return res.json(totalRecipes);
-  
-});
 
-router.get('/', async (req, res) => {
-  console.log("Entre al segundo GET");
-  /*  let data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`)
-     .then((response) => response.json())
- 
-   let db = data.results?.map(recipe => {
-     return {
-       id: recipe.id,
-       title: recipe.title,
-       summary: recipe.summary,
-       healthScore: recipe.healthScore,
-       instructions: recipe.instructions
-     }
-   }) */
-  //return res.json(db);
-  let { name } = req.query;
-  try {
-    if (!name) {
-      throw new Error('No ingreso el name');
-    }
-    let recipeList = await Recipe.findAll({
-      where: {
-        title: '%name%'
-      }
-    });
-    if (!recipeList) {
-      return res.send(`No existe ninguna receta que contenga la palabra ${name}`);
-    } else {
-      return res.json(recipeList);
-    }
-  } catch (error) {
-    return res.send(error.message);
-  }
 });
 
 router.get('/:id', async (req, res) => {
@@ -86,26 +87,17 @@ router.get('/:id', async (req, res) => {
   let { id } = req.params;
 
   try {
-    let recipe = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
-      .then(response => response.json());
-    let result = {
-      id: recipe.id,
-      title: recipe.title,
-      summary: recipe.summary,
-      healthScore: recipe.healthScore,
-      instructions: recipe.instructions
-    }
-    res.json(result);
+    let recipe = await getRecipe(id);
+    console.log("Imprimo el recipe");
+    console.log(recipe);
+    res.json(recipe);
   } catch (error) {
     res.status(404).send(error.message);
   }
-
-
-
 });
 
 router.post('/', async (req, res) => {
-
+  //let {title, summary,healthScore, instructions} =
 });
 
 

@@ -10,11 +10,20 @@ const RecipeDetail = ({match}) => {
     React.useEffect(() => {
         dispatch(getRecipe(match.params.recipeId));
     },[]);
+
     let recipe =useSelector((state) => state.recipe);
     return (
       <div>
         Recipe Detail
         <h1>{recipe.title}</h1>
+        <img src={recipe.image} alt="Imagen Receta" />
+                <ul>
+
+                    {recipe.diets?.map((diet) =>
+                       
+                       <li key={diet}>{diet}</li> 
+                    )}
+                </ul>
        <div dangerouslySetInnerHTML={{ __html: recipe.summary }}/>
         
         

@@ -23,9 +23,11 @@ export class Recipes extends Component {
           key={recipe.id}
           id={recipe.id}
           title={recipe.title}
-          summary={recipe.summary}
+          /* summary={recipe.summary}
           healthScore={recipe.healthScore}
-          instructions={recipe.instructions}
+          instructions={recipe.instructions} */
+          image={recipe.image}
+          diets= {recipe.diets}
         />
         
         )}
