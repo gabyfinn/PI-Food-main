@@ -62,7 +62,7 @@ async function getRecipe(id) {
   }
 }
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
   console.log("Entre al primer ID");
   let totalRecipes = await getAllRecipes();
   console.log(totalRecipes);
@@ -98,7 +98,11 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   let { title, summary, healthScore, instructions } = req.body;
-
+  console.log(req.body);
+  console.log(title);
+  console.log(summary);
+  console.log(healthScore);
+  console.log(instructions);
   try {
     if (title || summary) {
       let recipe = await Recipe.create({ title, summary, healthScore, instructions })
@@ -107,6 +111,7 @@ router.post('/', async (req, res) => {
       res.status(404).send("No se ingresaron los datos obligatorios");
     }
   } catch (error) {
+    console.log(error.message);
     res.status(404).send(error.message);
   }
 

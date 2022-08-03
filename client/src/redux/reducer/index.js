@@ -20,8 +20,8 @@ const rootReducer = (state = initialState, action) => {
         recipe: action.payload,
       }
     case CREATE_RECIPE:
+      console.log(action.payload);
       break;
-
     case DELETE_RECIPE:
       break;
     default: return { ...state };

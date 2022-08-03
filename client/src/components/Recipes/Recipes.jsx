@@ -19,7 +19,6 @@ const Recipes = () => {
     setRecipes(recipe);
   }, [recipe])
 
-
   useEffect(() => {
     dispatch(getAllRecipes());
   }, [dispatch]);
@@ -27,17 +26,14 @@ const Recipes = () => {
   useEffect(() => {
     setLoading(loading => !loading)
     if (recipe[0]?.id) {
-      console.log("entre a actualizar");
       actualizar();
     }
   }, [recipe, actualizar])
-
 
   // GET current recipes
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
-
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   return (
