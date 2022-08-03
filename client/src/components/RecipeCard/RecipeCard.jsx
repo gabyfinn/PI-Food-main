@@ -8,14 +8,12 @@ export class RecipeCard extends Component {
 
 
     render() {
-        console.log(this.props.loading);
         if (this.props.loading) {
             return <h2>Loading ...</h2>
         }
 
         return (
             <>
-
                 {this.props.recipes.map(recipe => (
                     <div key={recipe.id}>
                         <button onClick={() => this.props.deleteHouse(recipe.id)}>x</button>
