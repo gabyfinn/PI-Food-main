@@ -2,12 +2,24 @@ export const GET_ALL_RECIPES = "GET_ALL_RECIPES";
 export const GET_RECIPE = "GET_RECIPE";
 export const CREATE_RECIPE = "CREATE_RECIPE";
 export const DELETE_RECIPE = "DELETE_RECIPE";
+export const GET_ALL_DIETS = "GET_ALL_DIETS";
 
 //const URL_GETALL = 'http://localhost:3001/recipes';
-export const getAllRecipes = (title) => dispatch => {
+
+export const getAllDiets = () => async (dispatch) => {
+  return await fetch("http://localhost:3001/diets")
+  .then((response) =>response.json())
+  .then((response) => dispatch({
+    type:GET_ALL_DIETS,
+    payload:response,
+  }))
+}
+export const getAllRecipes = (title) => async (dispatch) => {
   let url='http://localhost:3001/recipes';
+  console.log(title);
   if(title) url=url+`?name=${title}`;
-  return fetch(url)
+  console.log(url);
+  return await fetch(url)
     .then((response) => response.json())
     .then((response) => dispatch({
       type: GET_ALL_RECIPES,

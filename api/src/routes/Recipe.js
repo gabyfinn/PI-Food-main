@@ -65,10 +65,10 @@ async function getRecipe(id) {
 router.get('/', async (req, res) => {
   console.log("Entre al primer ID");
   let totalRecipes = await getAllRecipes();
-  console.log(totalRecipes);
+  //console.log(totalRecipes);
 
   let title = req.query.name;
-
+console.log(title);
   if (title) {
     let result = totalRecipes?.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
     if (result.length) {

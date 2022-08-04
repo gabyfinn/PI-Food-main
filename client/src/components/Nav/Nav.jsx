@@ -1,13 +1,13 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import "./Nav.css";
 import { getAllRecipes } from '../../redux/actions';
 
-class Nav extends Component {
-  render() {
+const Nav = () => {
     const dispatch = useDispatch();
-    const [search,setSearch] = useState({
+
+     const [search,setSearch] = useState({
       search:"",
     })
     const handleChange = (e) => setSearch({
@@ -17,15 +17,18 @@ class Nav extends Component {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      dispatch(getAllRecipes(recipe));
+      console.log(search);
+      dispatch(getAllRecipes(search.search));
     }
 
     return (
       <div>
+        
         <input
           id='searchbar'
           type="text"
           name="search"
+          value={search.search}
           onChange={handleChange}
           placeholder='Buscar receta...'
         />
@@ -36,8 +39,6 @@ class Nav extends Component {
       </div>
     );
   }
-
-};
 
 
 export default Nav;

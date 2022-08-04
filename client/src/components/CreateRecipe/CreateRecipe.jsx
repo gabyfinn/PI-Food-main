@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createRecipe } from "../../redux/actions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createRecipe, getAllDiets } from "../../redux/actions";
 
 const CreateRecipe = () => {
   const dispatch = useDispatch();
+  const diets = useSelector((state) => state.diets);
   const [recipe, setRecipe] = useState({
     title: "",
     summary: "",
     healthScore: 0,
     instructions: "",
-  })
-
+  });
+  useEffect(() =>{
+    dispatch(getAllDiets());
+  },[dispatch]);
   const handleChange = (e) => setRecipe({
     ...recipe,
     [e.target.name]: e.target.value,
@@ -55,7 +58,13 @@ const CreateRecipe = () => {
         value={recipe.instructions}
         onChange={handleChange}
         />
-
+        {diets?.map((diet,index) =>
+        <div key={index}>
+          <input key={index} type="checkbox" id={`diet${index}`} name={`diet${index}`} value={diet.title}/>
+          <label htmlFor={`diet${index}`}> {diet.name} </label>
+        </div>
+          
+        )}
         <button type="submit">Create</button>
 
       </form>

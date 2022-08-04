@@ -11,7 +11,7 @@ export class RecipeCard extends Component {
         if (this.props.loading) {
             return <h2>Loading ...</h2>
         }
-
+        console.log(this.props.recipes);
         return (
             <>
                 {this.props.recipes.map(recipe => (

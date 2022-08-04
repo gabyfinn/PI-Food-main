@@ -16,17 +16,22 @@ const Recipes = () => {
   const recipe = useSelector((state) => state.recipes);
 
   const actualizar = useCallback(() => {
+    console.log("entre al metodo actualizar");
     setRecipes(recipe);
   }, [recipe])
 
   useEffect(() => {
+    console.log("Entre al use efect del getAllRecipes");
     dispatch(getAllRecipes());
   }, [dispatch]);
 
   useEffect(() => {
-    setLoading(loading => !loading)
+    console.log("Entre al use efect de loading");
+    setLoading(true)
     if (recipe[0]?.id) {
+      console.log("Entre al if recipe tiene algo");
       actualizar();
+      setLoading(false);
     }
   }, [recipe, actualizar])
 
@@ -34,7 +39,9 @@ const Recipes = () => {
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
-
+  console.log(loading);
+  console.log(recipe);
+  console.log(recipes);
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   return (
     <div>

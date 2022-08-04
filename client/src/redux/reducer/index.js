@@ -1,14 +1,20 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, DELETE_RECIPE } from '../actions';
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, DELETE_RECIPE, GET_ALL_DIETS } from '../actions';
 
 
 const initialState = {
   recipes: [],
   recipe: {},
+  diets:[],
 };
 
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_ALL_DIETS:
+      return {
+        ...state,
+        diets:action.payload,
+      }
     case GET_ALL_RECIPES:
       return {
         ...state,
