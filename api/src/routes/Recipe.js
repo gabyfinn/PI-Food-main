@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
 const { Router } = require('express');
-const { Op, Recipe } = require('../db');
+const { Op, Recipe, Diet } = require('../db');
 const e = require('express');
+const sequelize = require('sequelize');
 const router = Router();
 const { API_KEY, } = process.env;
 const API = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`;
@@ -68,8 +69,9 @@ router.get('/', async (req, res) => {
   //console.log(totalRecipes);
 
   let title = req.query.name;
-console.log(title);
+  console.log(title);
   if (title) {
+    console.log("Entre al al title");
     let result = totalRecipes?.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
     if (result.length) {
       return res.json(result);
@@ -97,16 +99,73 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  let { title, summary, healthScore, instructions } = req.body;
+
+  let { title, summary, healthScore, instructions, diets } = req.body;
+
   console.log(req.body);
   console.log(title);
   console.log(summary);
   console.log(healthScore);
   console.log(instructions);
+  console.log(diets);
+
   try {
     if (title || summary) {
+
       let recipe = await Recipe.create({ title, summary, healthScore, instructions })
-      res.json(recipe);
+
+      await recipe.addDiet(diets);
+
+
+      /* let result = await Recipe.findByPk(recipe.id, {
+        include: [{
+          model: 'Diets',
+          attributes: ['id','name']
+        }] 
+      })*/
+
+
+      /* let result = await Recipe.findAll({
+        where:{
+          id: recipe.id
+        },
+        include: 'Diets'
+      }) */
+
+
+      /* let result = await Recipe.findByPk(recipe.id,{
+        raw:true,
+        attributes: [[sequelize.col('Diets.name'),'name']] ,
+        include:[{
+          model:Diet,
+          required:false,
+          attributes:[]
+        }],
+      }); */
+
+
+      //const tasks = await Recipe.findByPk(recipe.id,{ include: 'Diets' });
+
+      const tasks = await Recipe.findByPk(recipe.id, {
+        include: {
+          model: Diet,
+          attributes:['name'],
+          through: {
+            attributes: []
+          }
+        }
+      })
+
+
+      //console.log(JSON.stringify(tasks, null, 2));
+
+      /* console.log(recipe);
+      let total = JSON.stringify(await recipe.getDiets());
+      console.log(total) */
+
+
+
+      res.json(tasks);
     } else {
       res.status(404).send("No se ingresaron los datos obligatorios");
     }
