@@ -3,6 +3,7 @@ export const GET_RECIPE = "GET_RECIPE";
 export const CREATE_RECIPE = "CREATE_RECIPE";
 export const DELETE_RECIPE = "DELETE_RECIPE";
 export const GET_ALL_DIETS = "GET_ALL_DIETS";
+export const ORDER_ALL_RECIPES= "ORDER_ALL_RECIPES";
 
 //const URL_GETALL = 'http://localhost:3001/recipes';
 
@@ -62,5 +63,12 @@ export const deleteRecipe = (id) => {
     payload: id,
   };
 };
+
+export const orderAllRecipes = (order) => {
+  return{
+    type: ORDER_ALL_RECIPES,
+    payload:order,
+  }
+}
 
 

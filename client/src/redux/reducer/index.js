@@ -1,4 +1,4 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, DELETE_RECIPE, GET_ALL_DIETS } from '../actions';
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, DELETE_RECIPE, GET_ALL_DIETS, ORDER_ALL_RECIPES } from '../actions';
 
 
 const initialState = {
@@ -30,6 +30,7 @@ const rootReducer = (state = initialState, action) => {
       break;
     case DELETE_RECIPE:
       break;
+      case ORDER_ALL_RECIPES:
     default: return { ...state };
   };
 };
