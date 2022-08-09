@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllRecipes } from "../../redux/actions";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from "../Pagination/Pagination";
+import './Recipes.css';
 
 const Recipes = () => {
 
@@ -44,14 +45,18 @@ const Recipes = () => {
   console.log(recipes);
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   return (
-    <div>
+    <>
       <h3>Recipes</h3>
-      <RecipeCard
-        recipes={currentRecipes}
-        loading={loading}
-      />
       <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} />
-    </div>
+
+      <div className="recipes">
+        <RecipeCard
+          recipes={currentRecipes}
+          loading={loading}
+        />
+      </div>
+      <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} />
+    </>
   );
 };
 

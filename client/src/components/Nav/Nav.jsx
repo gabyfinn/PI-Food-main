@@ -19,6 +19,7 @@ const Nav = () => {
       e.preventDefault();
       console.log(search);
       dispatch(getAllRecipes(search.search));
+      setSearch("");
     }
 
     return (

@@ -1,0 +1,13 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.recipes{
+    display: flex;
+    /* flex-direction: row; */
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+}
