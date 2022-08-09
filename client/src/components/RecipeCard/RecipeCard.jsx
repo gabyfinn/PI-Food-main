@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteRecipe } from '../../redux/actions';
 import "./RecipeCard.css";
 
 
@@ -17,18 +16,16 @@ export class RecipeCard extends Component {
             <>
                 {this.props.recipes.map(recipe => (
                     <div className='card-container' key={recipe.id}>
-                        
+
                         <Link to={`/recipes/${recipe.id}`}>
+                            <img src={recipe.image} alt="Imagen Receta" />
                             <h3>{recipe.title}</h3>
-                        
-                        <img src={recipe.image} alt="Imagen Receta" />
-                        <ul>
+                            <ul>
+                                {recipe.diets?.map((diet) =>
 
-                            {recipe.diets?.map((diet) =>
-
-                                <li key={diet}>{diet}</li>
-                            )}
-                        </ul>
+                                    <li key={diet}>{`•${diet}`}</li>
+                                )}
+                            </ul>
                         </Link>
                     </div>
                 ))}
@@ -51,6 +48,5 @@ export class RecipeCard extends Component {
         );
     };
 }
-export const mapDispatchToProps = { deleteRecipe };
 
-export default connect(null, mapDispatchToProps)(RecipeCard);
+export default connect(null, null)(RecipeCard);

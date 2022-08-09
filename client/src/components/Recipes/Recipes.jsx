@@ -47,7 +47,7 @@ const Recipes = () => {
   return (
     <>
       <h3>Recipes</h3>
-      <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} />
+      <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />
 
       <div className="recipes">
         <RecipeCard
@@ -55,7 +55,7 @@ const Recipes = () => {
           loading={loading}
         />
       </div>
-      <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} />
+      <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate}  currentPage={currentPage}/>
     </>
   );
 };

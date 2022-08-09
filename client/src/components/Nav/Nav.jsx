@@ -23,8 +23,8 @@ const Nav = () => {
     }
 
     return (
-      <div>
-        
+      <div id='top'>
+        <Link to={'/'}>Home</Link>
         <input
           id='searchbar'
           type="text"
@@ -37,6 +37,7 @@ const Nav = () => {
           onClick={handleSubmit}> Buscar</button>
         <Link to={'/'}>Landing Page</Link>
         <Link to={'/recipe/create'}>Create Recipe</Link>
+        
       </div>
     );
   }

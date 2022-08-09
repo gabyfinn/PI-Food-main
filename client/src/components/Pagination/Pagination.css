@@ -1,0 +1,20 @@
+.page-container {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.page-container a {
+    font-family: 'Montserrat', sans-serif;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+    color: #000;
+
+}
+
+.page-container a:hover{
+    color: cornflowerblue;
+}

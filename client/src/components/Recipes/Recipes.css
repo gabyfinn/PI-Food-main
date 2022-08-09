@@ -10,4 +10,8 @@
     flex-flow: row wrap;
     align-items: flex-start;
     justify-content: space-around;
+    background-image: url('./img/background-recipes.jpg');
+    background-size: cover;
+    background-position: center;
+    
 }

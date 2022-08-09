@@ -1,0 +1,111 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    color: #926239;
+    line-height: 1.6;
+} */
+
+#showcase {
+
+    /* background-image: url('./img/showcase1.jpg'); */
+    background-size: cover;
+    background-position: center;
+
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px 20px;
+    animation-name: fondo;
+    animation-duration: 15s;
+    animation-direction: alternate;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    /* -webkit-animation-name: fondo;
+    -webkit-animation-duration: 15s;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease;
+    
+    -webkit-animation-iteration-count: infinite; */
+
+}
+
+#showcase a {
+    text-decoration: none;
+}
+
+@keyframes fondo {
+    0% {
+        background-image: url('./img/showcase1.jpg');
+    }
+
+    25% {
+        background-image: url('./img/showcase2.jpg');
+
+    }
+
+    50% {
+        background-image: url('./img/showcase3.jpg');
+    }
+
+    75% {
+        background-image: url('./img/showcase4.jpg');
+    }
+    100% {
+        background-image: url('./img/showcase5.jpg');
+    }
+
+}
+
+.container {
+    display: flex;
+    transition: box-shadow 0.3s ease;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 1rem 0;
+  
+    padding: 0.25rem 0;
+    cursor: pointer;
+    
+    color: #fff;
+}
+
+.container h1 {
+    font-size: 50px;
+    line-height: 1.2;
+    margin: 1rem;
+
+}
+
+.container p {
+    font-size: 20px;
+    margin: 1rem;
+}
+
+.container .button {
+    font-size: 18px;
+    text-decoration: none;
+    color: #fff;
+    border: #fff 1px solid;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.container .button:hover {
+    background: #926239;
+    color: #fff;
+}
