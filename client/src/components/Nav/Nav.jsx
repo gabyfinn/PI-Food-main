@@ -28,7 +28,7 @@ const Nav = () => {
   const handleOrder = (e) => {
     setOrder({...order,
       [e.target.name]: e.target.value,});
-      dispatch(orderAllRecipes(order.order));
+      /* dispatch(orderAllRecipes(order.order)); */
 
   }
 
