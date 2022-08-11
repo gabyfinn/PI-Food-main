@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRecipe, getAllDiets } from "../../redux/actions";
+import { useForm } from "../hooks/useForm";
 
+const initialForm = {};
+const validationsForm = (form) => { }
 const CreateRecipe = () => {
+  const { form,
+    errors,
+    loading,
+    response,
+    handleChange,
+    handleBlur,
+    handleSubmit, } = useForm(initialForm, validationsForm);
   const dispatch = useDispatch();
   const dietsApi = useSelector((state) => state.diets);
   const [recipe, setRecipe] = useState({
