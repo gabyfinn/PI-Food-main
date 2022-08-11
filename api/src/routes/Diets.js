@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const { Op, Diet } = require('../db');
 const router = Router();
-const diets = ['Gluten Free', 'Ketogenic', 'Vegerarian', 'Lacto-Vegetarian', 'Ovo Vegetarian', 'Vegan', ' Pescetarian', 'Paleo',
-  'Primal', 'Low FODMAP', 'Whole30'];
+const diets=['dairy free','vegetarian','vegan','lacto ovo vegetarian','paleolithic','primal','whole 30','pescatarian','ketogenic','fodmap friendly','gluten free'];
+/* const diets = ['Gluten Free', 'Ketogenic', 'Vegerarian', 'Lacto-Vegetarian', 'Ovo Vegetarian', 'Vegan', ' Pescetarian', 'Paleo',
+  'Primal', 'Low FODMAP', 'Whole30']; */
 
 router.get('/', async (req, res) => {
   try {

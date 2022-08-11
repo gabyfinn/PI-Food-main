@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       {/* <h1>Henry Food</h1> */}
       <Route exact path={'/'} component={LandingPage} />
-      <Route exact path={'/recipes'} component={Nav} />
+      {/* <Route exact path={'/recipes'} component={Nav} /> */}
       <Route exact path={'/recipes'} component={Recipes} />
       <Route exact path={'/recipes/:recipeId'} component={RecipeDetail} />
       <Route exact path={'/recipe/create'} component={CreateRecipe} />

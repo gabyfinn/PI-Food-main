@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import "./Nav.css";
 import { getAllRecipes } from '../../redux/actions';
 
-const Nav = () => {
+const Nav = ({ sortByTitle, sortByDiet }) => {
   const dispatch = useDispatch();
-
+  const diets = useSelector((state) => state.diets);
+  console.log("imprimiendo las dietas");
+  console.log(diets);
   const [search, setSearch] = useState({
     search: "",
-  })
-
-  const [order, setOrder] = useState({
-    order: '',
   })
 
   const handleChange = (e) => setSearch({
@@ -20,17 +18,18 @@ const Nav = () => {
     [e.target.name]: e.target.value,
   })
 
- /*  const handleOrder = (e) => setOrder({
-    ...order,
-    [e.target.name]: e.target.value,
-  }) */
-
-  const handleOrder = (e) => {
-    setOrder({...order,
-      [e.target.name]: e.target.value,});
-      /* dispatch(orderAllRecipes(order.order)); */
-
-  }
+  /*  const handleOrder = (e) => setOrder({
+     ...order,
+     [e.target.name]: e.target.value,
+   }) */
+  /* 
+    function handleOrder(e) {
+    
+      console.log(e.target.value);
+      sort(e.target.value);
+      
+  
+    } */
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +37,6 @@ const Nav = () => {
     dispatch(getAllRecipes(search.search));
     setSearch("");
   }
-  console.log(order);
 
   return (
     <div id='top'>
@@ -54,11 +52,28 @@ const Nav = () => {
       <button
         onClick={handleSubmit}> Buscar</button>
       <Link to={'/'}>Landing Page</Link>
-      <Link to={'/recipe/create'}>Create Recipe</Link>
-      <label htmlFor='order'>Alphabetic Order:</label>
-      <select name='order' id='order' value={order.order} onChange={handleOrder}>
-        <option value='asc' onClick={console.log('Elegi ordenamiento ascendente')}>A-Z</option>
-        <option value='desc' onClick={console.log('Elegi ordenamiento descendente')}>Z-A</option>
+      <Link to={'/recipe/create'}> Create Recipe</Link>
+
+      <label htmlFor='diets'>Diets Filter:</label>
+      <select name='diets' defaultValue={'all'} onChange={e => sortByDiet(e.target.value)}>
+        <option value='all'>All</option>
+        {diets?.map((diet) => <option key={diet.name} value={diet.name}>{diet.name}</option> )}
+        {/* <option value='asc'>Asc</option>
+        <option value='desc'>Desc</option> */}
+      </select>
+
+      <label htmlFor='healthScore'>HealthScore Order:</label>
+      <select name='healthScore' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
+        <option value='all'>All</option>
+        <option value='asc'>Asc</option>
+        <option value='desc'>Desc</option>
+      </select>
+
+      <label htmlFor='title'>Alphabetic Order:</label>
+      <select name='title' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
+        <option value='all'>All</option>
+        <option value='asc'>A-Z</option>
+        <option value='desc'>Z-A</option>
       </select>
     </div>
   );

@@ -3,6 +3,7 @@ const { Router } = require('express');
 const { Op, Recipe, Diet } = require('../db');
 const e = require('express');
 const sequelize = require('sequelize');
+const { raw } = require('body-parser');
 const router = Router();
 const { API_KEY, } = process.env;
 const API = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`;
@@ -16,14 +17,25 @@ async function getAllRecipes() {
   try {
     let api = await fetch(API)
       .then(response => response.json());
-    let bd = await Recipe.findAll();
+    let bd = await Recipe.findAll({
+      include: {
+        model: Diet,
+        attributes: ['name'],
+        through: {
+          attributes: []
+        }
+      }
+    });
+
     let con = api.results.concat(bd);
+
     let resultado = con?.map(recipe => {
       return {
         id: recipe.id,
         title: recipe.title,
         image: recipe?.image,
-        diets: recipe?.diets,
+        diets: recipe?.diets || recipe?.Diets.map(e => e.name),
+        healthScore: recipe.healthScore,
       }
     });
     return resultado;
@@ -54,8 +66,23 @@ async function getRecipe(id) {
 
 
     }
-    let result = Recipe.findByPk(id);
+    let result = await Recipe.findByPk(id, {
+      include: {
+        model: Diet,
+        attributes: ['name'],
+        through: {
+          attributes: []
+        },
+      },
+      plain: true
+    }).then((response) => {
+      return response.get({
+        plain: true
+      })
+    })
 
+    result.diets=result.Diets?.map(e => e.name);
+    delete result['Diets'];
     return result;
 
   } catch (error) {
@@ -149,21 +176,12 @@ router.post('/', async (req, res) => {
       const tasks = await Recipe.findByPk(recipe.id, {
         include: {
           model: Diet,
-          attributes:['name'],
+          attributes: ['name'],
           through: {
             attributes: []
           }
         }
       })
-
-
-      //console.log(JSON.stringify(tasks, null, 2));
-
-      /* console.log(recipe);
-      let total = JSON.stringify(await recipe.getDiets());
-      console.log(total) */
-
-
 
       res.json(tasks);
     } else {
