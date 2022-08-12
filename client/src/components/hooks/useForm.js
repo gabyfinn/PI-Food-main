@@ -7,17 +7,29 @@ export const useForm = (initialForm, validateForm) => {
   const [response, setResponse] = useState(null);
 
   const handleChange = (e) => {
-    const {name,value} = e.target;
+    const { name, value } = e.target;
     setForm({
       ...form,
-      [name]:value,
+      [name]: value,
     })
+  }
+  const handleCheckBox = (e) => {
+    const { checked, value, name } = e.target;
+    if (!checked) {
+      
+      setForm({...form,[name]:form[name]?.filter(diet => diet !== value)})
+    } else {
+      setForm(
+       { ...form,
+        [name]: [...form[name], value]}
+      )
+    }
   }
 
   const handleBlur = (e) => {
     handleChange(e);
     setErrors(validateForm(form));
-   }
+  }
 
   const handleSubmit = (e) => { }
 
@@ -27,6 +39,7 @@ export const useForm = (initialForm, validateForm) => {
     loading,
     response,
     handleChange,
+    handleCheckBox,
     handleBlur,
     handleSubmit,
   }

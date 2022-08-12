@@ -8,8 +8,9 @@ const initialForm = {
   title: "",
   summary: "",
   image: "",
-  healthScore: 0,
+  healthScore: "",
   instructions: "",
+  diets: [],
 };
 
 const validationsForm = (form) => {
@@ -19,8 +20,27 @@ const validationsForm = (form) => {
     errors.title = "El campo 'Title' es requerido";
   }
 
+  if (!form.summary.trim()) {
+    errors.summary = "El campo 'Summary' es requerido";
+  }
+
+  if (!form.image.trim()) {
+    errors.img = "El campo 'Img' es requerido";
+  }
+  if (!form.healthScore.trim()) {
+    errors.healthScore = "El campo 'healthScore' es requerido";
+  }
+  if (!form.instructions.trim()) {
+    errors.instructions = "El campo 'instructions' es requerido";
+  }
+  if (!form.diets.length) {
+    errors.diets = "Tiene que elegir al menos una dieta";
+  }
+
+
   return errors;
 }
+
 let styles = {
   fontWeight: 'bold',
   color: '#dc3545',
@@ -33,6 +53,7 @@ const CreateRecipe = () => {
     loading,
     response,
     handleChange,
+    handleCheckBox,
     handleBlur,
     handleSubmit, } = useForm(initialForm, validationsForm);
 
@@ -44,9 +65,23 @@ const CreateRecipe = () => {
     image: "",
     healthScore: 0,
     instructions: "",
+    diets: [],
     errors: {},
   });
+
+  /* const handleCheckBox = (e) => {
+    if (!e.target.checked) {
+      setDietas(diets?.filter(dieta => dieta !== e.target.value))
+    } else {
+      setDietas(
+        [...diets,
+        e.target.value]
+      )
+    }
+  } */
+
   const [diets, setDietas] = useState([]);
+
   useEffect(() => {
     dispatch(getAllDiets());
   }, [dispatch]);
@@ -58,7 +93,7 @@ const CreateRecipe = () => {
       [e.target.name]: e.target.value,
     }) */
 
-  const handleCheckBox = (e) => {
+  /* const handleCheckBox = (e) => {
     if (!e.target.checked) {
       setDietas(diets?.filter(dieta => dieta !== e.target.value))
     } else {
@@ -67,7 +102,7 @@ const CreateRecipe = () => {
         e.target.value]
       )
     }
-  }
+  } */
 
   /* const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,6 +112,7 @@ const CreateRecipe = () => {
     handleValidation();
   }
  */
+
   const handleValidation = () => {
     let fields = recipe;
     let errors = {};
@@ -182,11 +218,12 @@ const CreateRecipe = () => {
 
         {dietsApi?.map((diet, index) =>
           <div key={index}>
-            <input key={index} type="checkbox" id={`diet${index}`} name={diet.name} value={diet.id} onChange={handleCheckBox} />
+            <input key={index} onBlur={handleBlur} type="checkbox" id={`diet${index}`} name="diets" value={diet.name} onChange={handleCheckBox} />
             <label htmlFor={`diet${index}`}> {diet.name} </label>
           </div>
 
         )}
+        {errors.diets && <p style={styles}>{errors.diets}</p>}
         <br />
         <button type="submit">Create</button>
 
