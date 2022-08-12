@@ -2,10 +2,32 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRecipe, getAllDiets } from "../../redux/actions";
 import { useForm } from "../hooks/useForm";
+import './CreateRecipe.css';
 
-const initialForm = {};
-const validationsForm = (form) => { }
+const initialForm = {
+  title: "",
+  summary: "",
+  image: "",
+  healthScore: 0,
+  instructions: "",
+};
+
+const validationsForm = (form) => {
+  let errors = {};
+
+  if (!form.title.trim()) {
+    errors.title = "El campo 'Title' es requerido";
+  }
+
+  return errors;
+}
+let styles = {
+  fontWeight: 'bold',
+  color: '#dc3545',
+}
+
 const CreateRecipe = () => {
+
   const { form,
     errors,
     loading,
@@ -13,6 +35,7 @@ const CreateRecipe = () => {
     handleChange,
     handleBlur,
     handleSubmit, } = useForm(initialForm, validationsForm);
+
   const dispatch = useDispatch();
   const dietsApi = useSelector((state) => state.diets);
   const [recipe, setRecipe] = useState({
@@ -29,11 +52,11 @@ const CreateRecipe = () => {
   }, [dispatch]);
 
 
-  const handleChange = (e) => setRecipe(
+  /* const handleChange = (e) => setRecipe(
     {
       ...recipe,
       [e.target.name]: e.target.value,
-    })
+    }) */
 
   const handleCheckBox = (e) => {
     if (!e.target.checked) {
@@ -46,14 +69,14 @@ const CreateRecipe = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  /* const handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target);
     console.log(diets);
     dispatch(createRecipe({ ...recipe, diets }));
     handleValidation();
   }
-
+ */
   const handleValidation = () => {
     let fields = recipe;
     let errors = {};
@@ -85,47 +108,78 @@ const CreateRecipe = () => {
     <div>
       Create Recipe
       <form onSubmit={handleSubmit}>
+
         <label>Title:</label>
         <input
           type="text"
           name="title"
-          value={recipe.title}
+          placeholder="Title..."
+          onBlur={handleBlur}
           onChange={handleChange}
+          value={form.title}
+          required
         />
-        <span>{recipe.errors['title']}</span>
-        <br />
+        {errors.title && <p style={styles}>{errors.title}</p>}
         <label>Summary:</label>
         <input
           type="text"
           name="summary"
-          value={recipe.summary}
+          placeholder="Summary..."
+          onBlur={handleBlur}
           onChange={handleChange}
+          value={form.summary}
+          required
         />
-        <br />
+        {errors.summary && <p style={styles}>{errors.summary}</p>}
+
         <label>Image:</label>
         <input
           type="text"
           name="image"
-          value={recipe.image}
+          placeholder="Ingrese URL de la imagen"
+          onBlur={handleBlur}
           onChange={handleChange}
+          value={form.image}
+
         />
-        <br />
+
+        {errors.image && <p style={styles}>{errors.image}</p>}
+
         <label>healthScore:</label>
         <input
           type="number"
           name="healthScore"
-          value={recipe.healthScore}
+          onBlur={handleBlur}
+          value={form.healthScore}
           onChange={handleChange}
+          required
         />
-        <br />
+
+        {errors.healthScore && <p style={styles}>{errors.healthScore}</p>}
+
         <label>Instructions:</label>
-        <input
+        <textarea
+          name="instructions"
+          cols="50"
+          rows="5"
+          placeholder="Instructions..."
+          onBlur={handleBlur}
+          value={form.instructions}
+          onChange={handleChange}
+        >
+
+        </textarea>
+
+        {errors.instructions && <p style={styles}>{errors.instructions}</p>}
+        {/* <input
           type="text"
           name="instructions"
+          place
           value={recipe.instructions}
           onChange={handleChange}
-        />
+        /> */}
         <br />
+
         {dietsApi?.map((diet, index) =>
           <div key={index}>
             <input key={index} type="checkbox" id={`diet${index}`} name={diet.name} value={diet.id} onChange={handleCheckBox} />

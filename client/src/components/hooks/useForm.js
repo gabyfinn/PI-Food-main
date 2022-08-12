@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { use } from '../../../../api/src/routes/Recipe';
 
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm)
@@ -8,10 +7,17 @@ export const useForm = (initialForm, validateForm) => {
   const [response, setResponse] = useState(null);
 
   const handleChange = (e) => {
-
+    const {name,value} = e.target;
+    setForm({
+      ...form,
+      [name]:value,
+    })
   }
 
-  const handleBlur = (e) => { }
+  const handleBlur = (e) => {
+    handleChange(e);
+    setErrors(validateForm(form));
+   }
 
   const handleSubmit = (e) => { }
 
