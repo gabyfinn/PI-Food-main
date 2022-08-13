@@ -32,10 +32,12 @@ const Recipes = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setLoading(loading => !loading);
+    /* setLoading(loading => !loading); */
+    setLoading(true);
     if (recipe[0]?.id) {
       update();
     }
+    setLoading(false);
   }, [recipe, update])
 
   // GET current recipes
@@ -48,8 +50,15 @@ const Recipes = () => {
   console.log(currentRecipes);
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+  function searchRecipe(title) {
+    console.log(title)
+    paginate(1);
 
-  //Function to sort by title
+    dispatch(getAllRecipes(title));
+
+  }
+
+  //Function to sort by diet
   function sortByDiet(diet) {
     paginate(1);
     if (diet === 'all') return setRecipes(recipe);
@@ -63,6 +72,7 @@ const Recipes = () => {
 
 
   function sortByTitle(order, key) {
+
     paginate(1);
     if (order === 'all') return setRecipes(recipe);
     let aux = [...recipe];
@@ -86,7 +96,7 @@ const Recipes = () => {
   return (
     <div>
       <h3>Recipes</h3>
-      <Nav sortByTitle={sortByTitle} sortByDiet={sortByDiet} />
+      <Nav searchRecipe={searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} />
       <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />
 
       <div className="recipes">

@@ -1,4 +1,4 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, DELETE_RECIPE, GET_ALL_DIETS, ORDER_ALL_RECIPES } from '../actions';
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, DELETE_RECIPE, GET_ALL_DIETS, ORDER_ALL_RECIPES, SET_ERROR} from '../actions';
 
 
 const initialState = {
@@ -6,6 +6,7 @@ const initialState = {
   recipesWork: [],
   recipe: {},
   diets: [],
+  error:{}
 };
 
 
@@ -34,16 +35,8 @@ const rootReducer = (state = initialState, action) => {
       }
     case DELETE_RECIPE:
       break;
-    /* case ORDER_ALL_RECIPES:
-      
-      console.log(order);
-      console.log(action.payload)
-      console.log(state.recipesWork);
-      console.log([...state.recipesWork]);
-      return{
-        ...state,
-        recipesWork:order,
-      } */
+      case SET_ERROR:
+        break;
   
     default: return { ...state };
   };

@@ -94,19 +94,20 @@ async function getRecipe(id) {
 }
 
 router.get('/', async (req, res) => {
-  console.log("Entre al primer ID");
+
   let totalRecipes = await getAllRecipes();
-  //console.log(totalRecipes);
+
 
   let title = req.query.name;
   console.log(title);
   if (title) {
+    let exp = new RegExp(title.toLowerCase());
     console.log("Entre al al title");
-    let result = totalRecipes?.filter(e => e.title.toLowerCase().includes(title.toLowerCase()));
+    let result = totalRecipes?.filter(e => exp.test(e.title.toLowerCase()));
     if (result.length) {
       return res.json(result);
     }
-    return res.status(404).send(`No se encontro una receta que contenga ${title}`);
+    return res.status(404).send({error:`No se encontro una receta que contenga ${title}`});
 
   }
 
@@ -127,6 +128,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
 router.post('/', async (req, res) => {
 
   let { title, image, summary, healthScore, instructions, diets } = req.body;
@@ -144,36 +146,6 @@ router.post('/', async (req, res) => {
       let recipe = await Recipe.create({ title, image, summary, healthScore, instructions })
 
       await recipe.addDiet(diets);
-
-
-      /* let result = await Recipe.findByPk(recipe.id, {
-        include: [{
-          model: 'Diets',
-          attributes: ['id','name']
-        }] 
-      })*/
-
-
-      /* let result = await Recipe.findAll({
-        where:{
-          id: recipe.id
-        },
-        include: 'Diets'
-      }) */
-
-
-      /* let result = await Recipe.findByPk(recipe.id,{
-        raw:true,
-        attributes: [[sequelize.col('Diets.name'),'name']] ,
-        include:[{
-          model:Diet,
-          required:false,
-          attributes:[]
-        }],
-      }); */
-
-
-      //const tasks = await Recipe.findByPk(recipe.id,{ include: 'Diets' });
 
       const tasks = await Recipe.findByPk(recipe.id, {
         include: {
@@ -193,9 +165,6 @@ router.post('/', async (req, res) => {
     console.log(error.message);
     res.status(404).send(error.message);
   }
-
-
-
 });
 
 
