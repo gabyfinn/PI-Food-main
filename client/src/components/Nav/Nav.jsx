@@ -7,8 +7,6 @@ import { getAllRecipes } from '../../redux/actions';
 const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
   const dispatch = useDispatch();
   const diets = useSelector((state) => state.diets);
-  /* console.log("imprimiendo las dietas");
-  console.log(diets); */
   const [search, setSearch] = useState("")
 
   const handleChange = (e) => setSearch(e.target.value)
@@ -53,8 +51,8 @@ const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
       <label htmlFor='diets'>Diets Filter:</label>
       <select name='diets' defaultValue={'all'} onChange={e => sortByDiet(e.target.value)}>
         <option value='all'>All</option>
-        {diets?.map((diet) => <option key={diet.name} value={diet.name}>{diet.name}</option> )}
-        
+        {diets?.map((diet) => <option key={diet.name} value={diet.name}> {diet.name} </option>)}
+
       </select>
 
       <label htmlFor='healthScore'>HealthScore Order:</label>

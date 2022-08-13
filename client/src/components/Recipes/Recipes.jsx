@@ -96,7 +96,9 @@ const Recipes = () => {
   return (
     <div>
       <h3>Recipes</h3>
-      <Nav searchRecipe={searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} />
+      <Nav searchRecipe= {searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
+        
+      </Nav>
       <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />
 
       <div className="recipes">

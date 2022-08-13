@@ -16,3 +16,13 @@ textarea{
     resize: none;
 }
 
+.createRecipe-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    margin: 0 auto;
+    border: 2px solid #000;
+}
+

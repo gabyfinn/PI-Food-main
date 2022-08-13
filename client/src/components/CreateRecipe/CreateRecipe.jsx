@@ -65,76 +65,45 @@ const CreateRecipe = () => {
 
   const dispatch = useDispatch();
   const dietsApi = useSelector((state) => state.diets);
-/* 
-  const [recipe, setRecipe] = useState({
-    title: "",
-    summary: "",
-    image: "",
-    healthScore: 0,
-    instructions: "",
-    diets: [],
-    errors: {},
-  });
- */
+
   useEffect(() => {
     dispatch(getAllDiets());
   }, [dispatch]);
 
-
-  /* const handleChange = (e) => setRecipe(
-    {
-      ...recipe,
-      [e.target.name]: e.target.value,
-    }) */
-
-  /* const handleCheckBox = (e) => {
-    if (!e.target.checked) {
-      setDietas(diets?.filter(dieta => dieta !== e.target.value))
-    } else {
-      setDietas(
-        [...diets,
-        e.target.value]
-      )
-    }
-  } */
-
-  /* const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-    console.log(diets);
-    dispatch(createRecipe({ ...recipe, diets }));
-    handleValidation();
-  }
- */
-
   return (
 
-    <div>
+    <div className="createRecipe-container">
       Create Recipe
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title:</label>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title..."
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={form.title}
+            required
+          />
+        </div>
 
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          placeholder="Title..."
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={form.title}
-          required
-        />
 
         {errors.title && <p style={styles}>{errors.title}</p>}
-        <label>Summary:</label>
-        <input
-          type="text"
-          name="summary"
-          placeholder="Summary..."
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={form.summary}
-          required
-        />
+
+        <div>
+          <label>Summary:</label>
+          <input
+            type="text"
+            name="summary"
+            placeholder="Summary..."
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={form.summary}
+            required
+          />
+        </div>
+
         {errors.summary && <p style={styles}>{errors.summary}</p>}
 
         <label>Image:</label>
@@ -149,17 +118,19 @@ const CreateRecipe = () => {
         />
 
         {errors.image && <p style={styles}>{errors.image}</p>}
+        <div>
+          <label>healthScore:</label>
+          <input
+            type="number"
+            name="healthScore"
+            placeholder="Ingrese un numero entre 0 y 100..."
+            onBlur={handleBlur}
+            value={form.healthScore}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label>healthScore:</label>
-        <input
-          type="number"
-          name="healthScore"
-          placeholder="Ingrese un numero entre 0 y 100..."
-          onBlur={handleBlur}
-          value={form.healthScore}
-          onChange={handleChange}
-          required
-        />
 
         {errors.healthScore && <p style={styles}>{errors.healthScore} hola nachito</p>}
 
