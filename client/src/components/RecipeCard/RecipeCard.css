@@ -4,7 +4,8 @@
 }
 
 .card-container {
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s;
+    /* transition: box-shadow 0.3s ease; */
     width: 20rem;
     height: 23rem;
     background-color: rgba(255, 99, 71, 0.5);
@@ -30,6 +31,11 @@
     font-family: 'Montserrat', sans-serif;
 
 }
+
+.card-container img{
+    width: 100%;
+}
+
 .card-container a ul{
  
     text-decoration: none;

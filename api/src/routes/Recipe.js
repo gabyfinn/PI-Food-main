@@ -51,6 +51,8 @@ async function getRecipe(id) {
       console.log("Entre al llamado de la api");
       let recipe = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
         .then(response => response.json());
+      console.log("Imprimiendo recipe");
+      console.log(recipe);
       if (recipe) {
         let result = {
           id: recipe.id,
@@ -81,12 +83,13 @@ async function getRecipe(id) {
       })
     })
 
-    result.diets=result.Diets?.map(e => e.name);
+    result.diets = result.Diets?.map(e => e.name);
     delete result['Diets'];
     return result;
 
   } catch (error) {
-    return error;
+    console.log("Imprimiendo el error")
+    throw new Error(error);
   }
 }
 
@@ -112,7 +115,6 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  console.log("Entre a la ruta /:id");
   let { id } = req.params;
 
   try {
@@ -127,7 +129,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-  let { title, summary, healthScore, instructions, diets } = req.body;
+  let { title, image, summary, healthScore, instructions, diets } = req.body;
 
   console.log(req.body);
   console.log(title);
@@ -139,7 +141,7 @@ router.post('/', async (req, res) => {
   try {
     if (title || summary) {
 
-      let recipe = await Recipe.create({ title, summary, healthScore, instructions })
+      let recipe = await Recipe.create({ title, image, summary, healthScore, instructions })
 
       await recipe.addDiet(diets);
 

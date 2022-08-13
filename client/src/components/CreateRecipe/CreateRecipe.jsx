@@ -15,9 +15,13 @@ const initialForm = {
 
 const validationsForm = (form) => {
   let errors = {};
+  let regexName = /^[A-Za-z\s]+$/;
+  let regexComments = /^.{1,255}$/;
 
   if (!form.title.trim()) {
     errors.title = "El campo 'Title' es requerido";
+  } else if (!regexName.test(form.title.trim())) {
+    errors.title = "El campo 'Title' solo acepta letras y espacios en blanco";
   }
 
   if (!form.summary.trim()) {
@@ -29,14 +33,16 @@ const validationsForm = (form) => {
   }
   if (!form.healthScore.trim()) {
     errors.healthScore = "El campo 'healthScore' es requerido";
+  } else if (parseInt(form.healthScore) < 0 || parseInt(form.healthScore) > 100) {
+    errors.healthScore = "Tiene que ser un numero entre 0 y 100";
   }
+
   if (!form.instructions.trim()) {
     errors.instructions = "El campo 'instructions' es requerido";
   }
   if (!form.diets.length) {
     errors.diets = "Tiene que elegir al menos una dieta";
   }
-
 
   return errors;
 }
@@ -59,6 +65,7 @@ const CreateRecipe = () => {
 
   const dispatch = useDispatch();
   const dietsApi = useSelector((state) => state.diets);
+/* 
   const [recipe, setRecipe] = useState({
     title: "",
     summary: "",
@@ -68,20 +75,7 @@ const CreateRecipe = () => {
     diets: [],
     errors: {},
   });
-
-  /* const handleCheckBox = (e) => {
-    if (!e.target.checked) {
-      setDietas(diets?.filter(dieta => dieta !== e.target.value))
-    } else {
-      setDietas(
-        [...diets,
-        e.target.value]
-      )
-    }
-  } */
-
-  const [diets, setDietas] = useState([]);
-
+ */
   useEffect(() => {
     dispatch(getAllDiets());
   }, [dispatch]);
@@ -113,32 +107,6 @@ const CreateRecipe = () => {
   }
  */
 
-  const handleValidation = () => {
-    let fields = recipe;
-    let errors = {};
-    let formIsValid = true;
-
-    //title
-
-    if (!recipe.title) {
-      formIsValid = false;
-      errors["name"] = "No puede estar vacio";
-    }
-
-    if (typeof fields["name"] !== "undefined") {
-      if (!fields["name"].match(/^[a-zA-Z]+$/)) {
-        formIsValid = false;
-        errors["name"] = "Solo letras";
-      }
-    }
-
-    setRecipe({
-      ...recipe,
-      errors: errors,
-    })
-    return formIsValid;
-  }
-
   return (
 
     <div>
@@ -155,6 +123,7 @@ const CreateRecipe = () => {
           value={form.title}
           required
         />
+
         {errors.title && <p style={styles}>{errors.title}</p>}
         <label>Summary:</label>
         <input
@@ -185,13 +154,14 @@ const CreateRecipe = () => {
         <input
           type="number"
           name="healthScore"
+          placeholder="Ingrese un numero entre 0 y 100..."
           onBlur={handleBlur}
           value={form.healthScore}
           onChange={handleChange}
           required
         />
 
-        {errors.healthScore && <p style={styles}>{errors.healthScore}</p>}
+        {errors.healthScore && <p style={styles}>{errors.healthScore} hola nachito</p>}
 
         <label>Instructions:</label>
         <textarea
@@ -207,24 +177,15 @@ const CreateRecipe = () => {
         </textarea>
 
         {errors.instructions && <p style={styles}>{errors.instructions}</p>}
-        {/* <input
-          type="text"
-          name="instructions"
-          place
-          value={recipe.instructions}
-          onChange={handleChange}
-        /> */}
-        <br />
 
         {dietsApi?.map((diet, index) =>
           <div key={index}>
-            <input key={index} onBlur={handleBlur} type="checkbox" id={`diet${index}`} name="diets" value={diet.name} onChange={handleCheckBox} />
+            <input key={index} onBlur={handleBlur} type="checkbox" id={`diet${index}`} name="diets" value={diet.id} onChange={handleCheckBox} />
             <label htmlFor={`diet${index}`}> {diet.name} </label>
           </div>
 
         )}
         {errors.diets && <p style={styles}>{errors.diets}</p>}
-        <br />
         <button type="submit">Create</button>
 
       </form>

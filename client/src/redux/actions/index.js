@@ -29,12 +29,18 @@ export const getAllRecipes = (title) => async (dispatch) => {
 };
 
 export const getRecipe = (id) => dispatch => {
-  return fetch(`http://localhost:3001/recipes/${id}`)
+  try{
+    return fetch(`http://localhost:3001/recipes/${id}`)
     .then((response) => response.json())
     .then((response) => dispatch({
       type: GET_RECIPE,
       payload: response,
-    }));
+    }))
+  }catch(error){
+    console.log(error.message);
+    alert(error);
+  }
+  
 };
 
 export const createRecipe = (recipe) => dispatch => {
