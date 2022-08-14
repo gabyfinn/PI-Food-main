@@ -1,8 +1,10 @@
+
 .page-container {
     display: flex;
     text-align: center;
     justify-content: center;
     margin: 1rem;
+    /* background-color: transparent; */
 }
 
 .page-container a {

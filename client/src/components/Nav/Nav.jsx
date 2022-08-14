@@ -26,48 +26,57 @@ const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(search);
-    /* dispatch(getAllRecipes(search)); */
     searchRecipe(search);
     setSearch("");
   }
 
   return (
-    <div id='top'>
+    <div className='navRecipes'>
       <Link to={'/'}>Home</Link>
-      <input
-        id='searchbar'
-        type="text"
-        name="search"
-        value={search}
-        onChange={handleChange}
-        placeholder='Buscar receta...'
-      />
-      <button
-        onClick={handleSubmit}> Search</button>
-      <Link to={'/'}>Landing Page</Link>
       <Link to={'/recipe/create'}> Create Recipe</Link>
 
-      <label htmlFor='diets'>Diets Filter:</label>
-      <select name='diets' defaultValue={'all'} onChange={e => sortByDiet(e.target.value)}>
-        <option value='all'>All</option>
-        {diets?.map((diet) => <option key={diet.name} value={diet.name}> {diet.name} </option>)}
 
-      </select>
 
-      <label htmlFor='healthScore'>HealthScore Order:</label>
-      <select name='healthScore' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
-        <option value='all'>All</option>
-        <option value='asc'>Asc</option>
-        <option value='desc'>Desc</option>
-      </select>
+      <div className='filters'>
+        <label htmlFor='diets'>Diets Filters</label>
+        <select name='diets' defaultValue={'all'} onChange={e => sortByDiet(e.target.value)}>
+          <option value='all'>All</option>
+          {diets?.map((diet) => <option key={diet.name} value={diet.name}> {diet.name} </option>)}
 
-      <label htmlFor='title'>Alphabetic Order:</label>
-      <select name='title' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
-        <option value='all'>All</option>
-        <option value='asc'>A-Z</option>
-        <option value='desc'>Z-A</option>
-      </select>
+        </select>
+        <i></i>
+      </div>
+
+      <div className='filters'>
+        <label htmlFor='healthScore'>HealthScore Order</label>
+        <select name='healthScore' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
+          <option value='all'>All</option>
+          <option value='asc'>Asc</option>
+          <option value='desc'>Desc</option>
+        </select>
+      </div>
+
+      <div className='filters'>
+        <label htmlFor='title'>Alphabetic Order</label>
+        <select name='title' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
+          <option value='all'>All</option>
+          <option value='asc'>A-Z</option>
+          <option value='desc'>Z-A</option>
+        </select>
+      </div>
+      <div className='search'>
+        <input
+          id='searchbar'
+          type="text"
+          name="search"
+          value={search}
+          onChange={handleChange}
+          placeholder='Buscar receta...'
+        />
+        <button
+          onClick={handleSubmit}> Search</button>
+      </div>
+
     </div>
   );
 }

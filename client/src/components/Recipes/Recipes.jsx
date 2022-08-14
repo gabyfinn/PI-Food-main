@@ -95,7 +95,6 @@ const Recipes = () => {
   // Reenderizado
   return (
     <div>
-      <h3>Recipes</h3>
       <Nav searchRecipe= {searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
         
       </Nav>
