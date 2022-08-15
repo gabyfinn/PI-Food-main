@@ -49,20 +49,22 @@ async function getRecipe(id) {
   try {
     if (!isNaN(id)) {
       console.log("Entre al llamado de la api");
+      const regex = /(<([^>]+)>)/gi;
       let recipe = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
         .then(response => response.json());
-      console.log("Imprimiendo recipe");
-      console.log(recipe);
+
       if (recipe) {
         let result = {
           id: recipe.id,
           title: recipe.title,
-          summary: recipe.summary,
+          summary: recipe.summary?.replace(regex, ""),
           healthScore: recipe.healthScore,
-          instructions: recipe.instructions,
+          instructions: (recipe.instructions?.replace(regex, "")),
           image: recipe?.image,
           diets: recipe?.diets,
         }
+        console.log("Imprimiendo algo")
+        console.log(result.summary);
         return result;
       }
 
@@ -88,7 +90,7 @@ async function getRecipe(id) {
     return result;
 
   } catch (error) {
-    console.log("Imprimiendo el error")
+    console.log("Imprimiendo el error:" + error.message);
     throw new Error(error);
   }
 }
@@ -107,7 +109,7 @@ router.get('/', async (req, res) => {
     if (result.length) {
       return res.json(result);
     }
-    return res.status(404).send({error:`No se encontro una receta que contenga ${title}`});
+    return res.status(404).send({ error: `No se encontro una receta que contenga ${title}` });
 
   }
 

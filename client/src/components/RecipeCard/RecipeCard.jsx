@@ -17,14 +17,23 @@ function RecipeCard({ recipes, loading }) {
 
                     <Link to={`/recipes/${recipe.id}`}>
                         <img src={recipe.image} alt="Imagen Receta" />
-                        <h3>{recipe.title}</h3>
-                        <ul>
+                        <div>
+                            <h3>{recipe.title}</h3>
+                        </div>
+
+                        <div className='card-diets'>
+
                             {recipe.diets?.map((diet) =>
 
-                                <li key={diet}>{`•${diet}`}</li>
+                                <li key={diet}>{`•${diet[0].toUpperCase() + diet.slice(1)}`}</li>
                             )}
-                        </ul>
-                        <p>{recipe.healthScore}</p>
+
+                        </div>
+                        <div className='card-healthScore'>
+                            <p>{recipe.healthScore}%</p>
+                        </div>
+
+
                     </Link>
                 </div>
             ))}

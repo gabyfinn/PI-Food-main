@@ -31,24 +31,42 @@ const RecipeDetail = ({ match }) => {
 
   return (
     <div className="recipeDetail">
+      <div className="detailTitle">
+        <h1>{recipe.title}</h1>
+      </div>
 
-      <h1>{recipe.title}</h1>
-      <img src={recipe.image} alt="Imagen Receta" />
-      <ul>
+      <div className="detailImage">
+        <img src={recipe.image} alt="Imagen Receta" />
+      </div>
 
-        {recipe.diets?.map((diet) =>
+      <div className="detailDiets">
+        <p>Diets</p>
+        <hr />
+        <ul>
 
-          <li key={diet}>{diet}</li>
-        )}
-      </ul>
-      <div dangerouslySetInnerHTML={{ __html: recipe.summary }} />
+          {recipe.diets?.map((diet) =>
+
+            <li key={diet}>{diet[0].toUpperCase()+diet.slice(1)}</li>
+          )}
+        </ul>
+
+      </div>
+
+      <div className="detailSummary" >
+        <p>{recipe.summary}</p>
+      </div>
+
+      <div>
+        <p>HealthScore: {recipe.healthScore}%</p>
+      </div>
 
 
-      <p>healthScore: {recipe.healthScore}</p>
-      <div dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
-    
+      <div>
+        <p>{recipe.instructions}</p>
+      </div>
+
     </div>
-    
+
   )
 }
 
