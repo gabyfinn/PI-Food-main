@@ -5,8 +5,8 @@ import { createRecipe } from "../../redux/actions";
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState(null);
+  /* const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null); */
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -18,7 +18,7 @@ export const useForm = (initialForm, validateForm) => {
   }
 
 const handleCheckBox = (e) => {
-  const { checked, value, name } = e.target;
+  const { checked, value} = e.target;
   console.log(checked);
   if (!checked) {
     let diets = form.diets?.filter(diet => diet !== value);
@@ -36,16 +36,6 @@ const handleCheckBox = (e) => {
     )
   }
 }
-/* const handleCheckBox = (e) => {
-  if (!e.target.checked) {
-    setDietas(diets?.filter(dieta => dieta !== e.target.value))
-  } else {
-    setDietas(
-      [...diets,
-      e.target.value]
-    )
-  }
-} */
 
 const handleBlur = (e) => {
   if (e.target.name === 'diets') {
@@ -74,8 +64,8 @@ const handleSubmit = (e) => {
 return {
   form,
   errors,
-  loading,
-  response,
+  /* loading,
+  response, */
   handleChange,
   handleCheckBox,
   handleBlur,

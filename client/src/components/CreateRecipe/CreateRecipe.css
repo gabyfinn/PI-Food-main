@@ -1,5 +1,3 @@
-
-
 textarea {
     font-family: inherit;
     resize: none;
@@ -38,15 +36,12 @@ textarea {
     width: 80%;
     font-size: 1rem;
     line-height: 1;
-   /*  background-color: transparent; */
 }
 
 .checkBoxDiets {
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    
-
 }
 .buttonCreate{
     margin-top: 1rem;

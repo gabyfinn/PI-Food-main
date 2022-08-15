@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createRecipe, getAllDiets } from "../../redux/actions";
+import { getAllDiets } from "../../redux/actions";
 import { useForm } from "../hooks/useForm";
-import NavBar from "../NavBar/NavBar";
 import './CreateRecipe.css';
 
 const initialForm = {
@@ -17,7 +16,7 @@ const initialForm = {
 const validationsForm = (form) => {
   let errors = {};
   let regexName = /^[A-Za-z\s]+$/;
-  let regexComments = /^.{1,255}$/;
+  /* let regexComments = /^.{1,255}$/; */
 
   if (!form.title.trim()) {
     errors.title = "El campo 'Title' es requerido";
@@ -57,8 +56,8 @@ const CreateRecipe = () => {
 
   const { form,
     errors,
-    loading,
-    response,
+    /* loading,
+    response, */
     handleChange,
     handleCheckBox,
     handleBlur,

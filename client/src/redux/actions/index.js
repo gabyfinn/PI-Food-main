@@ -18,22 +18,16 @@ export const getAllDiets = () => async (dispatch) => {
 }
 export const getAllRecipes = (title) => async (dispatch) => {
   let url = 'http://localhost:3001/recipes';
-  console.log(title);
   if (title) url = url + `?name=${title}`;
-  console.log(url);
   return await fetch(url)
     .then((response) => response.json())
     .then((response) => dispatch({
       type: GET_ALL_RECIPES,
       payload: response,
     }))
-    .catch((response) => {
-      
-      console.log("error");
-      console.log(response);
-    }
 
-    )
+
+
 };
 
 export const getRecipe = (id) => dispatch => {
@@ -71,12 +65,12 @@ export const createRecipe = (recipe) => dispatch => {
 
 }
 
-export const deleteRecipe = (id) => {
+/* export const deleteRecipe = (id) => {
   return {
     type: DELETE_RECIPE,
     payload: id,
   };
-};
+}; */
 
 export const orderAllRecipes = (order) => {
   return {

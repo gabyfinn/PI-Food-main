@@ -1,4 +1,4 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, DELETE_RECIPE, GET_ALL_DIETS, ORDER_ALL_RECIPES, SET_ERROR} from '../actions';
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, /* DELETE_RECIPE, */ GET_ALL_DIETS,} from '../actions';
 
 
 const initialState = {
@@ -33,11 +33,9 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         recipesWork: [...new Set(state.recipesWork), action.payload],
       }
-    case DELETE_RECIPE:
-      break;
-      case SET_ERROR:
-        break;
-  
+    /* case DELETE_RECIPE:
+      break; */
+
     default: return { ...state };
   };
 };

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import "./RecipeCard.css";
 
@@ -9,7 +8,6 @@ function RecipeCard({ recipes, loading }) {
     if (loading) {
         return <h2>Loading ...</h2>
     }
-    console.log(recipes);
     return (
         <>
             {recipes.map(recipe => (

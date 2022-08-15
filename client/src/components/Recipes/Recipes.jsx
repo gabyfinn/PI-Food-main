@@ -17,7 +17,7 @@ const Recipes = () => {
   const recipe = useSelector((state) => state.recipes);
 
   const update = useCallback(() => {
-    console.log("entre al metodo actualizar");
+    
     setRecipes(recipe);
   }, [recipe])
 
@@ -25,7 +25,7 @@ const Recipes = () => {
     /* if (recipe.length === 0) { */
     dispatch(getAllRecipes());
     dispatch(getAllDiets());
-    console.log("Entre al use efect del getAllRecipes");
+    
 
     /* } */
 
@@ -44,14 +44,11 @@ const Recipes = () => {
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
-  console.log(loading);
-  console.log(recipe);
-  console.log(recipes);
-  console.log(currentRecipes);
+  
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   function searchRecipe(title) {
-    console.log(title)
+
     paginate(1);
 
     dispatch(getAllRecipes(title));
@@ -65,7 +62,7 @@ const Recipes = () => {
     let aux = [...recipe];
 
     let aux2 = aux?.filter((e) => e.diets.includes(diet));
-    console.log(aux2);
+
     setRecipes(aux2)
 
   }
@@ -85,10 +82,10 @@ const Recipes = () => {
       }
       return 0;
     })
-    console.log(aux);
+    
 
     setRecipes(aux);
-    console.log(recipes);
+    
   }
 
 

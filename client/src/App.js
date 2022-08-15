@@ -1,6 +1,5 @@
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Nav from './components/Nav/Nav';
 import Recipes from './components/Recipes/Recipes';
 import RecipeDetail from './components/RecipesDetail/RecipeDetail';
 import CreateRecipe from './components/CreateRecipe/CreateRecipe';
@@ -15,15 +14,15 @@ function App() {
         <Switch>
 
           <Route exact path={'/'} component={LandingPage} />
-          {/* <Route exact path={'/recipes'} component={Nav} /> */}
           <Route exact path={'/recipes'} component={Recipes} />
-          {/* <Route exact path={'/recipes/:recipeId'} component={NavBar} /> */}
           <Route exact path={'/recipes/:recipeId'} >
-            <NavBar/>
+            <NavBar />
             <RecipeDetail />
           </Route>
-          {/* <Route exact path={'/recipe/create'} component={NavBar } /> */}
-          <Route exact path={'/recipe/create'} component={CreateRecipe} />
+          <Route exact path={'/recipe/create'}>
+            <NavBar />
+            <CreateRecipe />
+          </Route>
           <Route path={'*'} component={Page404} />
         </Switch>
       </BrowserRouter>
