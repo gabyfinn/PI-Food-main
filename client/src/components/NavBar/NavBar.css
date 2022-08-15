@@ -5,10 +5,37 @@
     height: 140px;
     width: 100%;
     display: flex;
-    /* padding: 10px; */
     flex-direction: row;
     flex-wrap: wrap;
     align-items:center;
-    justify-content: space-around;
-    text-decoration: none;
+    /* justify-content: center; */
+
 }
+/* .navBar .back{
+    float: right;
+    color: black;
+    justify-content: right;
+ } */
+
+.navBar a{
+    text-decoration: none;
+    color: #fff;
+    border:solid #fff 1px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin: 20px;
+   
+ }
+
+ .navBar a:hover{
+    background-color: #a4aec6;
+    transition: all 0.3s;
+    color: #000;
+    box-shadow: 0 0 5px #a4aec6,
+                0 0 20px rgb(164 174 198 / 0.8),
+                0 0 35px rgb(164 174 198 / 0.7),
+                0 0 50px rgb(164 174 198 / 0.6);
+    border-color: #fff;
+ }
+ 

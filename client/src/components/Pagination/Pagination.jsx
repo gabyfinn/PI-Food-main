@@ -15,15 +15,21 @@ const Pagination = ({ recipesPerPage, totalRecipes, paginate, currentPage}) => {
 
             <ul className="page-container">
                 {/*  <button onClick={() => currentPage-1? paginate(currentPage-1): null}>Prev</button> */}
-                <a href="#top" onClick={() => currentPage-1? paginate(currentPage-1): null}>Prev</a>
+                <button onClick={() => currentPage-1? paginate(currentPage-1): null}> Prev</button>
+                
 
                 {pageNumber.map(number => (
-                   
-                        <a href="#top" key={number} onClick={() => paginate(number)}>{number}</a>
+                        number === currentPage? 
+                        <button className="currentPage" key={number} onClick={() => paginate(number)}>{number}</button>
+                        :
+                        <button key={number} onClick={() => paginate(number)}>{number}</button>
+
+                        
+                        
                   
                 ))}
 
-                <a href="#top" onClick={() => currentPage+1<=cantPages? paginate(currentPage+1):null}>Next</a>
+                <button onClick={() => currentPage+1<=cantPages? paginate(currentPage+1):null}>Next</button>
             </ul>
         </div>
     )

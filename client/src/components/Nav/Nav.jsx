@@ -14,54 +14,63 @@ const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
     searchRecipe(search);
     setSearch("");
   }
-
+  const link = "https://images7.alphacoders.com/303/303042.png"
   return (
-    <div className='navRecipes'>
-      <Link to={'/'}>Home</Link>
-      <Link to={'/recipe/create'}> Create Recipe</Link>
+    <div>
+      <img src="img/logo.jpg" alt='narute'></img>
+      <div className='navRecipes'>
+        <div>
+          
+          {/* <img src={link} alt='narute'></img> */}
+        </div>
+
+        <Link to={'/'}>Home</Link>
+        <Link to={'/recipe/create'}> Create Recipe</Link>
 
 
 
-      <div className='filters'>
-        <label htmlFor='diets'>Diets Filters</label>
-        <select name='diets' defaultValue={'all'} onChange={e => sortByDiet(e.target.value)}>
-          <option value='all'>All</option>
-          {diets?.map((diet) => <option key={diet.name} value={diet.name}> {diet.name} </option>)}
+        <div className='filters'>
+          <label htmlFor='diets'>Diets Filters</label>
+          <select name='diets' defaultValue={'all'} onChange={e => sortByDiet(e.target.value)}>
+            <option value='all'>All</option>
+            {diets?.map((diet) => <option key={diet.name} value={diet.name}> {diet.name} </option>)}
 
-        </select>
+          </select>
+        </div>
+
+        <div className='filters'>
+          <label htmlFor='healthScore'>HealthScore Order</label>
+          <select name='healthScore' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
+            <option value='all'>All</option>
+            <option value='asc'>Asc</option>
+            <option value='desc'>Desc</option>
+          </select>
+        </div>
+
+        <div className='filters'>
+          <label htmlFor='title'>Alphabetic Order</label>
+          <select name='title' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
+            <option value='all'>All</option>
+            <option value='asc'>A-Z</option>
+            <option value='desc'>Z-A</option>
+          </select>
+        </div>
+        <div className='search'>
+          <input
+            id='searchbar'
+            type="text"
+            name="search"
+            value={search}
+            onChange={handleChange}
+            placeholder='Buscar receta...'
+          />
+          <button
+            onClick={handleSubmit}> Search</button>
+        </div>
+
       </div>
-
-      <div className='filters'>
-        <label htmlFor='healthScore'>HealthScore Order</label>
-        <select name='healthScore' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
-          <option value='all'>All</option>
-          <option value='asc'>Asc</option>
-          <option value='desc'>Desc</option>
-        </select>
-      </div>
-
-      <div className='filters'>
-        <label htmlFor='title'>Alphabetic Order</label>
-        <select name='title' defaultValue={'all'} onChange={e => sortByTitle(e.target.value, e.target.name)}>
-          <option value='all'>All</option>
-          <option value='asc'>A-Z</option>
-          <option value='desc'>Z-A</option>
-        </select>
-      </div>
-      <div className='search'>
-        <input
-          id='searchbar'
-          type="text"
-          name="search"
-          value={search}
-          onChange={handleChange}
-          placeholder='Buscar receta...'
-        />
-        <button
-          onClick={handleSubmit}> Search</button>
-      </div>
-
     </div>
+
   );
 }
 
