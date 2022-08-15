@@ -38,4 +38,9 @@
                 0 0 50px rgb(164 174 198 / 0.6);
     border-color: #fff;
  }
+
+ .navBar img {
+    height: 200px;
+    /* margin: 12px 10px; */
+ }
  

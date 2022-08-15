@@ -1,0 +1,16 @@
+.page404 {
+    width: 100%;
+    height: 100vh;
+    background-color: #e6e1db;
+    /* height: 50%; */
+    display: flex;
+    flex-direction: column;
+}
+
+.page404 img {
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
