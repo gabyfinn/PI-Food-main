@@ -1,17 +1,4 @@
-/* input[type='text'],
-input[type='number'],
-textarea {
-    border: thin solid #dedede;
-    border-radius: 0.25rem;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    outline: none;
-    display: block;
-    width: 80%;
-    font-size: 1rem;
-    line-height: 1;
-    background-color: transparent;
-} */
+
 
 textarea {
     font-family: inherit;
@@ -24,8 +11,19 @@ textarea {
     align-items: center;
     justify-content: center;
     width: 600px;
-    margin: 0 auto;
+    margin: 4rem auto;
     border: 2px solid #000;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+.createRecipe-container .labelInput{
+    display: flex;
+    align-items: flex-start;
+}
+.createRecipe-container label{
+    font-size: 1.2rem;
+    font-family: 'Courier New', Courier, monospace ;
 }
 
 .createRecipe-container input[type='text'],
@@ -40,5 +38,17 @@ textarea {
     width: 80%;
     font-size: 1rem;
     line-height: 1;
-    background-color: transparent;
+   /*  background-color: transparent; */
+}
+
+.checkBoxDiets {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    
+
+}
+.buttonCreate{
+    margin-top: 1rem;
+    padding: 0.5rem;
 }

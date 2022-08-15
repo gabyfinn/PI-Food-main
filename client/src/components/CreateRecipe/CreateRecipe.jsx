@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRecipe, getAllDiets } from "../../redux/actions";
 import { useForm } from "../hooks/useForm";
+import NavBar from "../NavBar/NavBar";
 import './CreateRecipe.css';
 
 const initialForm = {
@@ -29,7 +30,7 @@ const validationsForm = (form) => {
   }
 
   if (!form.image.trim()) {
-    errors.img = "El campo 'Img' es requerido";
+    errors.image = "El campo 'Image' es requerido";
   }
   if (!form.healthScore.trim()) {
     errors.healthScore = "El campo 'healthScore' es requerido";
@@ -71,96 +72,101 @@ const CreateRecipe = () => {
   }, [dispatch]);
 
   return (
+    <div>
 
-    <div className="createRecipe-container">
-      Create Recipe
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            name="title"
-            placeholder="Title..."
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.title}
-            required
-          />
-        </div>
-
-
-        {errors.title && <p style={styles}>{errors.title}</p>}
-
-        <div>
-          <label>Summary:</label>
-          <input
-            type="text"
-            name="summary"
-            placeholder="Summary..."
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.summary}
-            required
-          />
-        </div>
-
-        {errors.summary && <p style={styles}>{errors.summary}</p>}
-
-        <label>Image:</label>
-        <input
-          type="text"
-          name="image"
-          placeholder="Ingrese URL de la imagen"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={form.image}
-
-        />
-
-        {errors.image && <p style={styles}>{errors.image}</p>}
-        <div>
-          <label>healthScore:</label>
-          <input
-            type="number"
-            name="healthScore"
-            placeholder="Ingrese un numero entre 0 y 100..."
-            onBlur={handleBlur}
-            value={form.healthScore}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-
-        {errors.healthScore && <p style={styles}>{errors.healthScore} hola nachito</p>}
-
-        <label>Instructions:</label>
-        <textarea
-          name="instructions"
-          cols="50"
-          rows="5"
-          placeholder="Instructions..."
-          onBlur={handleBlur}
-          value={form.instructions}
-          onChange={handleChange}
-        >
-
-        </textarea>
-
-        {errors.instructions && <p style={styles}>{errors.instructions}</p>}
-
-        {dietsApi?.map((diet, index) =>
-          <div key={index}>
-            <input key={index} onBlur={handleBlur} type="checkbox" id={`diet${index}`} name="diets" value={diet.id} onChange={handleCheckBox} />
-            <label htmlFor={`diet${index}`}> {diet.name} </label>
+      <div className="createRecipe-container">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label className="labelInput">Title:</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title..."
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.title}
+              required
+            />
           </div>
 
-        )}
-        {errors.diets && <p style={styles}>{errors.diets}</p>}
-        <button type="submit">Create</button>
 
-      </form>
+          {errors.title && <p style={styles}>{errors.title}</p>}
+
+          <div>
+            <label className="labelInput">Summary:</label>
+            <input
+              type="text"
+              name="summary"
+              placeholder="Summary..."
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.summary}
+              required
+            />
+          </div>
+
+          {errors.summary && <p style={styles}>{errors.summary}</p>}
+
+          <label className="labelInput">Image:</label>
+          <input
+            type="text"
+            name="image"
+            placeholder="Ingrese URL de la imagen"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={form.image}
+
+          />
+
+          {errors.image && <p style={styles}>{errors.image}</p>}
+          <div>
+            <label className="labelInput">HealthScore:</label>
+            <input
+              type="number"
+              name="healthScore"
+              placeholder="Ingrese un numero entre 0 y 100..."
+              onBlur={handleBlur}
+              value={form.healthScore}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+
+          {errors.healthScore && <p style={styles}>{errors.healthScore}</p>}
+
+          <label className="labelInput">Instructions:</label>
+          <textarea
+            name="instructions"
+            cols="50"
+            rows="5"
+            placeholder="Instructions..."
+            onBlur={handleBlur}
+            value={form.instructions}
+            onChange={handleChange}
+          >
+
+          </textarea>
+
+          {errors.instructions && <p style={styles}>{errors.instructions}</p>}
+
+          <div className="checkBoxDiets">
+            {dietsApi?.map((diet, index) =>
+              <div key={index}>
+                <input key={index} onBlur={handleBlur} type="checkbox" id={`diet${index}`} name="diets" value={diet.id} onChange={handleCheckBox} />
+                <label htmlFor={`diet${index}`}> {diet.name} </label>
+              </div>
+
+            )}
+          </div>
+
+          {errors.diets && <p style={styles}>{errors.diets}</p>}
+          <button type="submit" className="buttonCreate">Create</button>
+
+        </form>
+      </div>
     </div>
+
   )
 }
 

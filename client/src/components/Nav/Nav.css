@@ -4,17 +4,9 @@
     border-radius: 10px;
 }
 
-/* input[type=text] {
-    width: 30%;
-    -webkit-transition: width 0.15s ease-in-out;
-    transition: width 0.15s ease-in-out;
- } */
-
  .navRecipes{
-   /*  background-color: rgba(165, 42, 42, 0.5); */
+   
     background-color: #444c64;
-    margin-left:5px ;
-    margin-right: 5px;
     color: #fff;
     height: 140px;
     width: 100%;

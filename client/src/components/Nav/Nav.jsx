@@ -2,27 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import "./Nav.css";
-import { getAllRecipes } from '../../redux/actions';
 
 const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
-  const dispatch = useDispatch();
   const diets = useSelector((state) => state.diets);
   const [search, setSearch] = useState("")
 
   const handleChange = (e) => setSearch(e.target.value)
-
-  /*  const handleOrder = (e) => setOrder({
-     ...order,
-     [e.target.name]: e.target.value,
-   }) */
-  /* 
-    function handleOrder(e) {
-    
-      console.log(e.target.value);
-      sort(e.target.value);
-      
-  
-    } */
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +29,6 @@ const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
           {diets?.map((diet) => <option key={diet.name} value={diet.name}> {diet.name} </option>)}
 
         </select>
-        <i></i>
       </div>
 
       <div className='filters'>

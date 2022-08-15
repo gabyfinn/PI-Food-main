@@ -1,25 +1,23 @@
-
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-.recipes{
+.recipes {
     display: flex;
-    /* flex-direction: row; */
     flex-flow: row wrap;
     align-items: flex-start;
     justify-content: space-around;
-    /* background-image: url('./img/background-recipes.jpg'); */
-   /*  background-size: cover;
-    background-position: center; */
-    
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 70px;
+
 }
 
-body{
-   
-    background-image: url('./img/background-recipes.jpg');
+body {
+    background: url('./img/background-recipes.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat, repeat;
 }

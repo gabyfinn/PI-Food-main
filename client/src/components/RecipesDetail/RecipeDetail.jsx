@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipe } from "../../redux/actions";
-
-
+import './RecipeDetail.css';
 
 const RecipeDetail = ({ match }) => {
   const [loading, setLoading] = useState(false);
@@ -31,8 +30,8 @@ const RecipeDetail = ({ match }) => {
   }
 
   return (
-    <div>
-      Recipe Detail
+    <div className="recipeDetail">
+
       <h1>{recipe.title}</h1>
       <img src={recipe.image} alt="Imagen Receta" />
       <ul>
@@ -47,7 +46,9 @@ const RecipeDetail = ({ match }) => {
 
       <p>healthScore: {recipe.healthScore}</p>
       <div dangerouslySetInnerHTML={{ __html: recipe.instructions }} />
+    
     </div>
+    
   )
 }
 
