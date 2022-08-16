@@ -15,7 +15,7 @@
 }
 
 
-.detailSummary{
+.detailSummary, .detailInstructions{
     font-size: 1.2rem;
     margin: 20px;
     text-align: left;
@@ -27,4 +27,12 @@
     flex-direction: column;
     text-align: left;
     
+}
+
+.detailImage img{
+    max-width: 100%;
+}
+
+.detailTitle {
+    margin: 15px;
 }

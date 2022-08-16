@@ -17,7 +17,7 @@
     justify-content: right;
  } */
 
-.navBar a{
+.navBar .link{
     text-decoration: none;
     color: #fff;
     border:solid #fff 1px;
@@ -28,7 +28,7 @@
    
  }
 
- .navBar a:hover{
+ .navBar .link:hover{
     background-color: #a4aec6;
     transition: all 0.3s;
     color: #000;

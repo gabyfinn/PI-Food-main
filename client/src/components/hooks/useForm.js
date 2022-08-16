@@ -3,8 +3,11 @@ import { useDispatch } from "react-redux";
 import { createRecipe } from "../../redux/actions";
 
 export const useForm = (initialForm, validateForm) => {
+
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({});
+  const [confirm, setConfirm] = useState(false);
+
   /* const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null); */
   const dispatch = useDispatch();
@@ -53,8 +56,8 @@ export const useForm = (initialForm, validateForm) => {
     setErrors(validateForm(form));
 
     if (Object.keys(errors).length === 0) {
-
-      alert("Enviando el formulario");
+      setConfirm(true);
+      /* alert("Enviando el formulario"); */
       dispatch(createRecipe(form));
       setForm(initialForm);
 
@@ -62,6 +65,9 @@ export const useForm = (initialForm, validateForm) => {
       for (const el of diets) {
         el.checked = false;
       }
+      setTimeout(()=>{
+        setConfirm(false);
+      },5000);
 
     } else {
       return;
@@ -71,6 +77,7 @@ export const useForm = (initialForm, validateForm) => {
   return {
     form,
     errors,
+    confirm,
     /* loading,
     response, */
     handleChange,

@@ -47,3 +47,7 @@ textarea {
     margin-top: 1rem;
     padding: 0.5rem;
 }
+
+.createRecipe-container h2{
+    color: green;
+}

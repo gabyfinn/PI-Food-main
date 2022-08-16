@@ -1,14 +1,16 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getRecipe } from "../../redux/actions";
 import './RecipeDetail.css';
 
 const RecipeDetail = () => {
-  const {recipeId} =useParams();
+  const { recipeId } = useParams();
   const [loading, setLoading] = useState(false);
   const [recipe, setRecipe] = useState({});
   const dispatch = useDispatch();
+  const history = useHistory();
+  const changePage = useCallback(() => history.push('/recipes'), [history]);
 
   let resultado = useSelector((state) => state.recipe);
 
@@ -27,17 +29,23 @@ const RecipeDetail = () => {
     }
   }, [resultado, actualizar])
   if (loading) {
-    return <h2>Loading ...</h2>
+    return <div className="recipeDetail"> <h2>Loading ...</h2> </div>;
   }
-  if(recipe.error){
+  if (recipe.error) {
+    setTimeout(() => {
+      console.log("Entre al fin");
+      changePage();
+    }, 5000);
+
     console.log(recipe.error);
-    return <h2> El ID ingresado no es valido </h2>
+    return <div className="recipeDetail"> <h2> El ID ingresado no es valido </h2></div>
   }
-  
+
 
   return (
     <div>
       <div className="recipeDetail">
+
         <div className="detailTitle">
           <h1>{recipe.title}</h1>
         </div>
@@ -68,7 +76,7 @@ const RecipeDetail = () => {
         </div>
 
 
-        <div>
+        <div className="detailInstructions">
           <p>{recipe.instructions}</p>
         </div>
 

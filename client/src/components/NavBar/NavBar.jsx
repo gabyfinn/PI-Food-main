@@ -13,7 +13,7 @@ const NavBar = () => {
       <Link className="link" to={'/'}>Home</Link>
       <Link className="link" to={'/recipe/create'}> Create Recipe</Link>
 
-      <Link className="back" to={'/recipes'}>Back</Link>
+      <Link className="link back" to={'/recipes'}>Back</Link>
     </div>
   )
 }

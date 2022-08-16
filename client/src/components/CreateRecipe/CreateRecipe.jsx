@@ -53,15 +53,17 @@ let styles = {
 }
 
 const CreateRecipe = () => {
-
+  
   const { form,
     errors,
+    confirm,
     /* loading,
     response, */
     handleChange,
     handleCheckBox,
     handleBlur,
-    handleSubmit, } = useForm(initialForm, validationsForm);
+    handleSubmit,
+  } = useForm(initialForm, validationsForm);
 
   const dispatch = useDispatch();
   const dietsApi = useSelector((state) => state.diets);
@@ -162,6 +164,8 @@ const CreateRecipe = () => {
           {errors.diets && <p style={styles}>{errors.diets}</p>}
           <button type="submit" className="buttonCreate">Create</button>
         </form>
+        
+        {confirm && <h2>Formulario Enviado</h2>}
       </div>
     </div>
 
