@@ -90,7 +90,7 @@ async function getRecipe(id) {
     return result;
 
   } catch (error) {
-    console.log("Imprimiendo el error:" + error.message);
+    /* console.log("Imprimiendo el error:" + error.message); */
     throw new Error(error);
   }
 }
@@ -122,11 +122,9 @@ router.get('/:id', async (req, res) => {
 
   try {
     let recipe = await getRecipe(id);
-    console.log("Imprimo el recipe");
-    console.log(recipe);
     res.json(recipe);
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(404).send({ error: `${error.message}` });
   }
 });
 
@@ -134,13 +132,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 
   let { title, image, summary, healthScore, instructions, diets } = req.body;
-
-  console.log(req.body);
-  console.log(title);
-  console.log(summary);
-  console.log(healthScore);
-  console.log(instructions);
-  console.log(diets);
 
   try {
     if (title || summary) {

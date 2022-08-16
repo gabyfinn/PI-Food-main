@@ -1,19 +1,17 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import './NavBar.css';
-import logo from '../../img/Logo.jpg';
+import logo from '../../img/Logo2.png';
 
 const NavBar = () => {
 
   return (
     <div className="navBar">
-      <img src={logo} alt='narute'></img>
-      <div>
-        {/* <img src="https://play-lh.googleusercontent.com/nCVVCbeSI14qEvNnvvgkkbvfBJximn04qoPRw8GZjC7zeoKxOgEtjqsID_DDtNfkjyo" alt='narute' width="300" />
-        <img src='img/casi.png' alt='narute'></img> */}
-      </div>
-       <Link to={'/'}>Home</Link>
-      <Link to={'/recipe/create'}> Create Recipe</Link>
+      <Link to={'/'}>
+        <img src={logo} alt='logo'></img>
+      </Link>
+      <Link className="link" to={'/'}>Home</Link>
+      <Link className="link" to={'/recipe/create'}> Create Recipe</Link>
 
       <Link className="back" to={'/recipes'}>Back</Link>
     </div>

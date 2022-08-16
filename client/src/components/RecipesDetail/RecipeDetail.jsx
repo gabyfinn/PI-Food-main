@@ -26,10 +26,14 @@ const RecipeDetail = () => {
       actualizar();
     }
   }, [resultado, actualizar])
-
   if (loading) {
     return <h2>Loading ...</h2>
   }
+  if(recipe.error){
+    console.log(recipe.error);
+    return <h2> El ID ingresado no es valido </h2>
+  }
+  
 
   return (
     <div>

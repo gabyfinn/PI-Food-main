@@ -152,7 +152,7 @@ const CreateRecipe = () => {
           <div className="checkBoxDiets">
             {dietsApi?.map((diet, index) =>
               <div key={index}>
-                <input key={index} onBlur={handleBlur} type="checkbox" id={`diet${index}`} name="diets" value={diet.id} onChange={handleCheckBox} />
+                <input key={index} onBlur={handleBlur} type="checkbox" id={`diet${index}`} name="dietsForm" value={diet.id} onChange={handleCheckBox} />
                 <label htmlFor={`diet${index}`}> {diet.name} </label>
               </div>
 
@@ -161,7 +161,6 @@ const CreateRecipe = () => {
 
           {errors.diets && <p style={styles}>{errors.diets}</p>}
           <button type="submit" className="buttonCreate">Create</button>
-
         </form>
       </div>
     </div>

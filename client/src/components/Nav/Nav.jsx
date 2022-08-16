@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import "./Nav.css";
-import logo from '../../img/Logo.jpg';
+import logo from '../../img/Logo2.png';
 
 const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
   const diets = useSelector((state) => state.diets);
@@ -15,18 +15,20 @@ const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
     searchRecipe(search);
     setSearch("");
   }
-  
+
   return (
     <div>
 
       <div className='navRecipes'>
         <div className='logo'>
+          <Link to={'/'}>
+            <img src={logo} alt='logo'></img>
+          </Link>
 
-          <img src={logo} alt='narute'></img>
         </div>
 
-        <Link to={'/'}>Home</Link>
-        <Link to={'/recipe/create'}> Create Recipe</Link>
+        <Link className='link' to={'/'}>Home</Link>
+        <Link className='link' to={'/recipe/create'}> Create Recipe</Link>
 
 
 

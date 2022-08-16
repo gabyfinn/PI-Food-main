@@ -19,7 +19,7 @@
    text-decoration: none;
 }
 
-.navRecipes a {
+.navRecipes .link {
    text-decoration: none;
    color: #fff;
    border: solid #fff 1px;
@@ -29,7 +29,7 @@
 
 }
 
-.navRecipes a:hover {
+.navRecipes .link:hover {
    background-color: #a4aec6;
    transition: all 0.3s;
    color: #000;
@@ -102,6 +102,7 @@
 } */
 
 .logo img {
-   height: 200px;
+  height: 100px;
+   /* height: auto; */
    /* margin: 12px 10px; */
 }

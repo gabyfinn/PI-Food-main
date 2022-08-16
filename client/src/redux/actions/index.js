@@ -31,17 +31,21 @@ export const getAllRecipes = (title) => async (dispatch) => {
 };
 
 export const getRecipe = (id) => dispatch => {
-  try {
+/*   try { */
     return fetch(`http://localhost:3001/recipes/${id}`)
       .then((response) => response.json())
       .then((response) => dispatch({
         type: GET_RECIPE,
         payload: response,
       }))
-  } catch (error) {
+      .catch((error) => {
+        console.log("Existe un error");
+        alert(error);
+      })
+  /* } catch (error) {
     console.log(error.message);
     alert(error);
-  }
+  } */
 
 };
 

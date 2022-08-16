@@ -17,59 +17,66 @@ export const useForm = (initialForm, validateForm) => {
     })
   }
 
-const handleCheckBox = (e) => {
-  const { checked, value} = e.target;
-  console.log(checked);
-  if (!checked) {
-    let diets = form.diets?.filter(diet => diet !== value);
-    console.log(diets);
-    setForm({ ...form, diets, })
-  } else {
-    console.log("Entre por el no");
-    let diets = [...form.diets, value]
-    console.log(diets);
-    setForm(
-      {
-        ...form,
-        diets,
+  const handleCheckBox = (e) => {
+    const { checked, value } = e.target;
+
+    if (!checked) {
+      let diets = form.diets?.filter(diet => diet !== value);
+
+      setForm({ ...form, diets, })
+    } else {
+
+      let diets = [...form.diets, value]
+
+      setForm(
+        {
+          ...form,
+          diets,
+        }
+      )
+    }
+  }
+
+  const handleBlur = (e) => {
+    if (e.target.name === 'diets') {
+      /* handleCheckBox(e); */
+    } else {
+      handleChange(e);
+    }
+
+    setErrors(validateForm(form));
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors(validateForm(form));
+
+    if (Object.keys(errors).length === 0) {
+
+      alert("Enviando el formulario");
+      dispatch(createRecipe(form));
+      setForm(initialForm);
+
+      const diets = document.getElementsByName("dietsForm");
+      for (const el of diets) {
+        el.checked = false;
       }
-    )
-  }
-}
 
-const handleBlur = (e) => {
-  if (e.target.name === 'diets') {
-    /* handleCheckBox(e); */
-  } else {
-    handleChange(e);
+    } else {
+      return;
+    }
   }
 
-  setErrors(validateForm(form));
-}
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  setErrors(validateForm(form));
-
-  if (Object.keys(errors).length === 0) {
-
-    alert("Enviando el formulario");
-    dispatch(createRecipe(form));
-
-  } else {
-    return;
+  return {
+    form,
+    errors,
+    /* loading,
+    response, */
+    handleChange,
+    handleCheckBox,
+    handleBlur,
+    handleSubmit,
   }
-}
-
-return {
-  form,
-  errors,
-  /* loading,
-  response, */
-  handleChange,
-  handleCheckBox,
-  handleBlur,
-  handleSubmit,
-}
 
 }
