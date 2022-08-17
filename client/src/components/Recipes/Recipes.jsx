@@ -34,11 +34,11 @@ const Recipes = () => {
 
   useEffect(() => {
     setIsLoading(isLoading => !isLoading);
-    /* setLoading(true); */
+    /* setIsLoading(true); */
     if (recipe[0]?.id) {
       update();
     }
-    /* setLoading(false); */
+    /* setIsLoading(false); */
   }, [recipe, update])
 
   // GET current recipes
@@ -48,11 +48,13 @@ const Recipes = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+
   function searchRecipe(title) {
 
     paginate(1);
-
-    dispatch(getAllRecipes(title));
+    setIsLoading(isLoading => !isLoading);
+    dispatch(getAllRecipes(title))
+    
 
   }
 
@@ -95,6 +97,8 @@ const Recipes = () => {
     <div>
       <Nav searchRecipe={searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
       </Nav>
+
+      {recipe.error && <h1>{recipe.error}</h1>}
       {isLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />}
       <div className="recipes">
         {isLoading ? <Loading /> :
