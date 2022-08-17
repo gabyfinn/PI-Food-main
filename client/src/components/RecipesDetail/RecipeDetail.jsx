@@ -2,7 +2,9 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getRecipe } from "../../redux/actions";
+import Loading from "../Loading/Loading";
 import './RecipeDetail.css';
+
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
@@ -10,31 +12,33 @@ const RecipeDetail = () => {
   const [recipe, setRecipe] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
-  const changePage = useCallback(() => history.push('/recipes'), [history]);
+  const handleOnClick = useCallback(() => history.push('/recipes'), [history]);
 
   let resultado = useSelector((state) => state.recipe);
-
+  
   const actualizar = useCallback(() => {
     setRecipe(resultado);
   }, [resultado])
 
   React.useEffect(() => {
-    dispatch(getRecipe(recipeId));
+    dispatch(getRecipe(recipeId))
+
   }, [dispatch, recipeId]);
 
-  useEffect(() => {
-    setLoading(loading => !loading);
-    if (Object.keys(resultado).length) {
-      actualizar();
-    }
-  }, [resultado, actualizar])
+    useEffect(() => {
+      setLoading(loading => !loading);
+      if (Object.keys(resultado).length) {
+        actualizar();
+      }
+    }, [resultado, actualizar])
+  
   if (loading) {
-    return <div className="recipeDetail"> <h2>Loading ...</h2> </div>;
+    return <Loading/>
   }
   if (recipe.error) {
     setTimeout(() => {
       console.log("Entre al fin");
-      changePage();
+      handleOnClick();
     }, 5000);
 
     console.log(recipe.error);

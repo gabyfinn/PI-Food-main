@@ -5,9 +5,9 @@ import "./RecipeCard.css";
 
 function RecipeCard({ recipes, loading }) {
 
-    if (loading) {
+   /*  if (loading) {
         return <h2>Loading ...</h2>
-    }
+    } */
     return (
         <>
             {recipes.map(recipe => (

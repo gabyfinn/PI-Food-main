@@ -5,11 +5,12 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from "../Pagination/Pagination";
 import './Recipes.css';
 import Nav from "../Nav/Nav";
+import Loading from "../Loading/Loading";
 
 const Recipes = () => {
 
   const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage] = useState(9);
 
@@ -17,7 +18,7 @@ const Recipes = () => {
   const recipe = useSelector((state) => state.recipes);
 
   const update = useCallback(() => {
-    
+
     setRecipes(recipe);
   }, [recipe])
 
@@ -25,26 +26,26 @@ const Recipes = () => {
     /* if (recipe.length === 0) { */
     dispatch(getAllRecipes());
     dispatch(getAllDiets());
-    
+
 
     /* } */
 
   }, [dispatch]);
 
   useEffect(() => {
-    /* setLoading(loading => !loading); */
-    setLoading(true);
+    setIsLoading(isLoading => !isLoading);
+    /* setLoading(true); */
     if (recipe[0]?.id) {
       update();
     }
-    setLoading(false);
+    /* setLoading(false); */
   }, [recipe, update])
 
   // GET current recipes
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
-  
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   function searchRecipe(title) {
@@ -82,28 +83,25 @@ const Recipes = () => {
       }
       return 0;
     })
-    
+
 
     setRecipes(aux);
-    
+
   }
 
 
   // Reenderizado
   return (
     <div>
-      <Nav searchRecipe= {searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
-        
+      <Nav searchRecipe={searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
       </Nav>
-      <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />
-
+      {isLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />}
       <div className="recipes">
-        <RecipeCard
-          recipes={currentRecipes}
-          loading={loading}
-        />
+        {isLoading ? <Loading /> :
+          <RecipeCard recipes={currentRecipes} />}
+
       </div>
-      {/* <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipe.length} paginate={paginate} currentPage={currentPage} /> */}
+      {isLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipe.length} paginate={paginate} currentPage={currentPage} />}
     </div>
   );
 };
