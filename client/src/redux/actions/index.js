@@ -5,6 +5,8 @@ export const DELETE_RECIPE = "DELETE_RECIPE";
 export const GET_ALL_DIETS = "GET_ALL_DIETS";
 export const ORDER_ALL_RECIPES = "ORDER_ALL_RECIPES";
 export const SET_ERROR = "SET_ERROR";
+export const CLEAN_DETAIL = "CLEAN_DETAIL";
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
 //const URL_GETALL = 'http://localhost:3001/recipes';
 
@@ -48,6 +50,20 @@ export const getRecipe = (id) => dispatch => {
   } */
 
 };
+
+export const cleanDetail = () => {
+  return {
+    type: CLEAN_DETAIL,
+    payload:"",
+  }
+}
+
+export const setCurrentPage = (page) => {
+  return {
+    type: SET_CURRENT_PAGE,
+    payload:page,
+  }
+}
 
 export const createRecipe = (recipe) => dispatch => {
   console.log(recipe);

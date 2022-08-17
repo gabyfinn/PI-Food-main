@@ -23,22 +23,22 @@ const Recipes = () => {
   }, [recipe])
 
   useEffect(() => {
-    /* if (recipe.length === 0) { */
-    dispatch(getAllRecipes());
-    dispatch(getAllDiets());
+    if (recipe.length === 0) {
+      dispatch(getAllRecipes());
+      dispatch(getAllDiets());
 
 
-    /* } */
+    }
 
   }, [dispatch]);
 
   useEffect(() => {
-    setIsLoading(isLoading => !isLoading);
-    /* setIsLoading(true); */
+    /* setIsLoading(isLoading => !isLoading); */
+    setIsLoading(true);
     if (recipe[0]?.id) {
       update();
     }
-    /* setIsLoading(false); */
+    setIsLoading(false);
   }, [recipe, update])
 
   // GET current recipes
@@ -54,7 +54,7 @@ const Recipes = () => {
     paginate(1);
     setIsLoading(isLoading => !isLoading);
     dispatch(getAllRecipes(title))
-    
+
 
   }
 

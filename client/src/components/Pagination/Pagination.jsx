@@ -5,7 +5,7 @@ const Pagination = ({ recipesPerPage, totalRecipes, paginate, currentPage}) => {
 
     let pageNumber = [];
     let cantPages = Math.ceil(totalRecipes / recipesPerPage)
-
+    
     for (let i = 1; i <= cantPages; i++) {
         pageNumber.push(i);
     }

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { getRecipe } from "../../redux/actions";
+import { getRecipe, cleanDetail } from "../../redux/actions";
 import Loading from "../Loading/Loading";
 import './RecipeDetail.css';
 
@@ -15,25 +15,30 @@ const RecipeDetail = () => {
   const handleOnClick = useCallback(() => history.push('/recipes'), [history]);
 
   let resultado = useSelector((state) => state.recipe);
-  
+
   const actualizar = useCallback(() => {
     setRecipe(resultado);
   }, [resultado])
 
   React.useEffect(() => {
-    dispatch(getRecipe(recipeId))
+    dispatch(getRecipe(recipeId));
+
+    return () => {
+      console.log("Entre al useEffect")
+      dispatch(cleanDetail());
+    }
 
   }, [dispatch, recipeId]);
 
-    useEffect(() => {
-      setLoading(loading => !loading);
-      if (Object.keys(resultado).length) {
-        actualizar();
-      }
-    }, [resultado, actualizar])
-  
+  useEffect(() => {
+    setLoading(loading => !loading);
+    if (Object.keys(resultado).length) {
+      actualizar();
+    }
+  }, [resultado, actualizar])
+
   if (loading) {
-    return <Loading/>
+    return <Loading />
   }
   if (recipe.error) {
     setTimeout(() => {

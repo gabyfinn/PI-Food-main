@@ -1,4 +1,4 @@
-import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, /* DELETE_RECIPE, */ GET_ALL_DIETS,} from '../actions';
+import { GET_ALL_RECIPES, GET_RECIPE, CREATE_RECIPE, /* DELETE_RECIPE, */ GET_ALL_DIETS, CLEAN_DETAIL, SET_CURRENT_PAGE} from '../actions';
 
 
 const initialState = {
@@ -6,7 +6,8 @@ const initialState = {
   recipesWork: [],
   recipe: {},
   diets: [],
-  error:{}
+  error:{},
+  currentPage:1,
 };
 
 
@@ -28,6 +29,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         recipe: action.payload,
       }
+    case CLEAN_DETAIL:
+      return {
+        ...state,
+        recipe:{}
+      }
     case CREATE_RECIPE:
       return {
         ...state,
@@ -35,6 +41,11 @@ const rootReducer = (state = initialState, action) => {
       }
     /* case DELETE_RECIPE:
       break; */
+      case SET_CURRENT_PAGE:
+        return {
+          ...state,
+          currentPage:action.payload,
+        }
 
     default: return { ...state };
   };
