@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import "./Nav.css";
 import logo from '../../img/Logo2.png';
@@ -7,7 +7,9 @@ import logo from '../../img/Logo2.png';
 const Nav = ({ searchRecipe, sortByTitle, sortByDiet }) => {
   const diets = useSelector((state) => state.diets);
   const [search, setSearch] = useState("")
-
+  const location = useLocation();
+  console.log("Estoy parado en:");
+  console.log(location.pathname)
   const handleChange = (e) => setSearch(e.target.value)
 
   const handleSubmit = (e) => {

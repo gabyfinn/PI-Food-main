@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDiets, getAllRecipes } from "../../redux/actions";
+import { getAllDiets, getAllRecipes, setCurrentPage } from "../../redux/actions";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from "../Pagination/Pagination";
 import './Recipes.css';
@@ -11,11 +11,12 @@ const Recipes = () => {
 
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  /* const [currentPage, setCurrentPage] = useState(1); */
   const [recipesPerPage] = useState(9);
 
   const dispatch = useDispatch();
   const recipe = useSelector((state) => state.recipes);
+  const currentPage = useSelector(state => state.currentPage);
 
   const update = useCallback(() => {
 
@@ -26,8 +27,6 @@ const Recipes = () => {
     if (recipe.length === 0) {
       dispatch(getAllRecipes());
       dispatch(getAllDiets());
-
-
     }
 
   }, [dispatch]);
@@ -46,7 +45,7 @@ const Recipes = () => {
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber) => dispatch(setCurrentPage(pageNumber));
 
 
   function searchRecipe(title) {
@@ -86,9 +85,7 @@ const Recipes = () => {
       return 0;
     })
 
-
     setRecipes(aux);
-
   }
 
 
