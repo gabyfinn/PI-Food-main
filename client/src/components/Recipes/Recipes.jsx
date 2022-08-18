@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDiets, getAllRecipes, setCurrentPage } from "../../redux/actions";
+import { getAllDiets, getAllRecipes, setCurrentPage, loadingAction } from "../../redux/actions";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from "../Pagination/Pagination";
 import './Recipes.css';
@@ -17,17 +17,20 @@ const Recipes = () => {
   const dispatch = useDispatch();
   const recipe = useSelector((state) => state.recipes);
   const currentPage = useSelector(state => state.currentPage);
+  const showLoading = useSelector(state => state.showLoading);
 
   const update = useCallback(() => {
 
     setRecipes(recipe);
+
   }, [recipe])
 
   useEffect(() => {
-    if (recipe.length === 0) {
-      dispatch(getAllRecipes());
-      dispatch(getAllDiets());
-    }
+    /*  if (recipe.length === 0) { */
+    dispatch(loadingAction(true));
+    dispatch(getAllRecipes());
+    dispatch(getAllDiets());
+    /*  } */
 
   }, [dispatch]);
 
@@ -38,7 +41,7 @@ const Recipes = () => {
       update();
     }
     setIsLoading(false);
-  }, [recipe, update])
+  }, [recipe])
 
   // GET current recipes
   const indexOfLastRecipe = currentPage * recipesPerPage;
@@ -96,13 +99,14 @@ const Recipes = () => {
       </Nav>
 
       {recipe.error && <h1>{recipe.error}</h1>}
-      {isLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />}
+      {console.log(showLoading)}
+      {showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />}
       <div className="recipes">
-        {isLoading ? <Loading /> :
+        {showLoading ? <Loading /> :
           <RecipeCard recipes={currentRecipes} />}
 
       </div>
-      {isLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipe.length} paginate={paginate} currentPage={currentPage} />}
+      {showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipe.length} paginate={paginate} currentPage={currentPage} />}
     </div>
   );
 };
