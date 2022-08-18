@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getAllDiets, getAllRecipes, setCurrentPage, loadingAction, searchRecipe, resetRecipe, setError } from "../../redux/actions";
+import { getAllDiets, getAllRecipes, setCurrentPage, loadingAction, searchRecipe, /* resetRecipe, */ setError } from "../../redux/actions";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from "../Pagination/Pagination";
 import './Recipes.css';
@@ -26,11 +26,13 @@ const Recipes = () => {
 
   }, [recipe])
  */
+
   useEffect(() => {
 
     /* if (recipe[0]?.id) {
       update();
     } */
+
     if (recipe[0]?.id) setRecipes(recipe);
 
   }, [recipe])
@@ -46,10 +48,10 @@ const Recipes = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("Entre al use efect del error");
+   /*  console.log("Entre al use efect del error"); */
     if (error) {
       setTimeout(() => {
-        console.log("Entre al fin");
+       /*  console.log("Entre al fin"); */
 
         dispatch(setError());
         setError(error)
@@ -108,7 +110,7 @@ const Recipes = () => {
   /* console.log("Lo que tiene recipes es:");
   console.log(recipe); */
   /* debugger; */
-  const currentRecipes = recipe?.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  const currentRecipes = recipes?.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
   const paginate = (pageNumber) => dispatch(setCurrentPage(pageNumber));
 
@@ -169,7 +171,7 @@ const Recipes = () => {
           <RecipeCard recipes={currentRecipes} />}
 
       </div>
-      {error ? null : showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipe.length} paginate={paginate} currentPage={currentPage} />}
+      {error ? null : showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />}
     </div>
   );
 };

@@ -14,8 +14,8 @@ export const RESET_RECIPE = "RESET_RECIPE";
 
 //const URL_GETALL = 'http://localhost:3001/recipes';
 
-export const getAllDiets = () => async (dispatch) => {
-  return await fetch("http://localhost:3001/diets")
+export const getAllDiets = () => (dispatch) => {
+  return fetch("http://localhost:3001/diets")
     .then((response) => response.json())
     .then((response) => dispatch({
       type: GET_ALL_DIETS,
@@ -46,10 +46,10 @@ export const getRecipe = (id) => dispatch => {
     .then((response) => dispatch({
       type: GET_RECIPE,
       payload: response,
-    }), response => console.log(response))
+    }), /* response => console.log(response) */)
     .catch((error) => {
-      console.log("Existe un error");
-      alert(error);
+      /* console.log("Existe un error");
+      alert(error); */
     })
   /* } catch (error) {
     console.log(error.message);
@@ -73,9 +73,9 @@ export const setCurrentPage = (page) => {
 }
 
 export const createRecipe = (recipe) => dispatch => {
-  console.log(recipe);
+ /*  console.log(recipe); */
   let prueba = JSON.stringify(recipe);
-  console.log(prueba);
+ /*  console.log(prueba); */
   return fetch('http://localhost:3001/recipes', {
     method: 'POST',
     body: prueba,
@@ -147,7 +147,7 @@ export const searchRecipe = (title) => (dispatch) => {
     dispatch(loadingAction(false));
   })
   .catch(error => {
-    console.log(error);
+   /*  console.log(error); */
     dispatch({
       type: SET_ERROR,
       payload: error.message,

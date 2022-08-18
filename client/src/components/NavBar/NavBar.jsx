@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, /* useLocation */ } from 'react-router-dom';
 import './NavBar.css';
 import logo from '../../img/Logo2.png';
 
 const NavBar = () => {
-  const location = useLocation();
+  /* const location = useLocation();
   console.log("Estoy parado en:");
-  console.log(location.pathname);
+  console.log(location.pathname); */
   return (
     <div className="navBar">
       <Link to={'/'}>

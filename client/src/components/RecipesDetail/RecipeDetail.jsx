@@ -24,7 +24,7 @@ const RecipeDetail = () => {
     dispatch(getRecipe(recipeId));
 
     return () => {
-      console.log("Entre al useEffect")
+     /*  console.log("Entre al useEffect") */
       dispatch(cleanDetail());
     }
 
@@ -42,11 +42,11 @@ const RecipeDetail = () => {
   }
   if (recipe.error) {
     setTimeout(() => {
-      console.log("Entre al fin");
+     /*  console.log("Entre al fin"); */
       handleOnClick();
     }, 5000);
 
-    console.log(recipe.error);
+   /*  console.log(recipe.error); */
     return <div className="recipeDetail"> <h2> El ID ingresado no es valido </h2></div>
   }
 
