@@ -6,7 +6,7 @@ const sequelize = require('sequelize');
 const { raw } = require('body-parser');
 const router = Router();
 const { API_KEY, } = process.env;
-const API = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`;
+const API = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`;
 /* const {
   DB_USER, DB_PASSWORD, API_KEY, DB_HOST,
 } = process.env; */
@@ -109,7 +109,7 @@ router.get('/', async (req, res) => {
     if (result.length) {
       return res.json(result);
     }
-    return res.status(404).send({ error: `No se encontro una receta que contenga ${title}` });
+    return res.status(404).json({ error: `No se encontro una receta que contenga ${title}` });
 
   }
 

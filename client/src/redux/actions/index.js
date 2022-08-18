@@ -8,6 +8,8 @@ export const SET_ERROR = "SET_ERROR";
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const LOADING_ACTION = "LOADING_ACTION";
+export const SEARCH_RECIPE= "SEARCH_RECIPE";
+export const RESET_RECIPE= "RESET_RECIPE";
 
 //const URL_GETALL = 'http://localhost:3001/recipes';
 
@@ -19,6 +21,7 @@ export const getAllDiets = () => async (dispatch) => {
       payload: response,
     }))
 }
+
 export const getAllRecipes = (title) => async (dispatch) => {
   let url = 'http://localhost:3001/recipes';
   if (title) url = url + `?name=${title}`;
@@ -111,4 +114,28 @@ export const loadingAction = (status) => {
   }
 }
 
+export const resetRecipe = () =>{
+  return{
+    type:RESET_RECIPE,
+    payload:"",
+  }
+}
+
+export const searchRecipe = (title) => async (dispatch) => {
+  let url = 'http://localhost:3001/recipes';
+  if (title) url = url + `?name=${title}`;
+  return await fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      
+      dispatch({
+        type: SEARCH_RECIPE,
+        payload: response,
+      })
+      dispatch(loadingAction(false));
+    })
+
+
+
+};
 

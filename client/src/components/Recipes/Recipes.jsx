@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDiets, getAllRecipes, setCurrentPage, loadingAction } from "../../redux/actions";
+import { useHistory } from "react-router-dom";
+import { getAllDiets, getAllRecipes, setCurrentPage, loadingAction ,searchRecipe, resetRecipe} from "../../redux/actions";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from "../Pagination/Pagination";
 import './Recipes.css';
@@ -10,18 +11,26 @@ import Loading from "../Loading/Loading";
 const Recipes = () => {
 
   const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  /* const [currentPage, setCurrentPage] = useState(1); */
   const [recipesPerPage] = useState(9);
-
+  const history = useHistory();
   const dispatch = useDispatch();
-  const recipe = useSelector((state) => state.recipes);
+  const recipe = useSelector((state) => state.recipesWork);
   const currentPage = useSelector(state => state.currentPage);
   const showLoading = useSelector(state => state.showLoading);
+  const handleOnClick = useCallback(() => history.push('/recipes'), [history]);
 
-  const update = useCallback(() => {
+  /* const update = useCallback(() => {
 
     setRecipes(recipe);
+
+  }, [recipe])
+ */
+  useEffect(() => {
+
+    /* if (recipe[0]?.id) {
+      update();
+    } */
+    if (recipe[0]?.id) setRecipes(recipe);
 
   }, [recipe])
 
@@ -30,32 +39,51 @@ const Recipes = () => {
     dispatch(loadingAction(true));
     dispatch(getAllRecipes());
     dispatch(getAllDiets());
+
     /*  } */
 
   }, [dispatch]);
 
-  useEffect(() => {
-    /* setIsLoading(isLoading => !isLoading); */
-    setIsLoading(true);
-    if (recipe[0]?.id) {
-      update();
-    }
-    setIsLoading(false);
-  }, [recipe])
+  /* 
+    useEffect(() => {
+      /* setIsLoading(isLoading => !isLoading); */
+  /*setIsLoading(true);
+  if (recipe[0]?.id) {
+    update();
+  }
+  setIsLoading(false);
+}, [recipe]) */
 
+  /* if (recipe.error) {
+    setTimeout(() => {
+      console.log("Entre al fin");
+     /*  handleOnClick(); */
+    /*  dispatch(resetRecipe());
+    }, 5000);
+    /* dispatch(loadingAction(true)); */
+   /*
+    console.log(recipe.error);
+    return <div className="recipeDetail"> <h2> El ID ingresado no es valido </h2></div>
+  }else{
+    
+  } */
   // GET current recipes
+
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-  const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  /* console.log("Lo que tiene recipes es:");
+  console.log(recipe); */
+  /* debugger; */
+  const currentRecipes = recipe.error? null:recipe?.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
   const paginate = (pageNumber) => dispatch(setCurrentPage(pageNumber));
 
 
-  function searchRecipe(title) {
+  function search(title) {
 
     paginate(1);
-    setIsLoading(isLoading => !isLoading);
-    dispatch(getAllRecipes(title))
+    dispatch(loadingAction(true));
+    dispatch(searchRecipe(title))
 
 
   }
@@ -92,10 +120,12 @@ const Recipes = () => {
   }
 
 
+
+
   // Reenderizado
   return (
     <div>
-      <Nav searchRecipe={searchRecipe} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
+      <Nav searchRecipe={search} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
       </Nav>
 
       {recipe.error && <h1>{recipe.error}</h1>}
