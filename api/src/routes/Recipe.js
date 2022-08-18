@@ -109,7 +109,7 @@ router.get('/', async (req, res) => {
     if (result.length) {
       return res.json(result);
     }
-    return res.status(404).json({ error: `No se encontro una receta que contenga ${title}` });
+    return res.status(404).send(`No se encontro una receta que contenga ${title}` );
 
   }
 
@@ -124,7 +124,7 @@ router.get('/:id', async (req, res) => {
     let recipe = await getRecipe(id);
     res.json(recipe);
   } catch (error) {
-    res.status(404).send({ error: `${error.message}` });
+    res.status(404).json({ error: `${error.message}` });
   }
 });
 

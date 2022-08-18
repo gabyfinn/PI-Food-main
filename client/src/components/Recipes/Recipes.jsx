@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getAllDiets, getAllRecipes, setCurrentPage, loadingAction ,searchRecipe, resetRecipe} from "../../redux/actions";
+import { getAllDiets, getAllRecipes, setCurrentPage, loadingAction, searchRecipe, resetRecipe, setError } from "../../redux/actions";
 import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from "../Pagination/Pagination";
 import './Recipes.css';
@@ -17,6 +17,7 @@ const Recipes = () => {
   const recipe = useSelector((state) => state.recipesWork);
   const currentPage = useSelector(state => state.currentPage);
   const showLoading = useSelector(state => state.showLoading);
+  const error = useSelector(state => state.error)
   const handleOnClick = useCallback(() => history.push('/recipes'), [history]);
 
   /* const update = useCallback(() => {
@@ -44,6 +45,20 @@ const Recipes = () => {
 
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log("Entre al use efect del error");
+    if (error) {
+      setTimeout(() => {
+        console.log("Entre al fin");
+
+        dispatch(setError());
+        setError(error)
+        handleOnClick();
+        
+      }, 2000);
+    }
+  }, [error,dispatch,handleOnClick])
+
   /* 
     useEffect(() => {
       /* setIsLoading(isLoading => !isLoading); */
@@ -54,19 +69,38 @@ const Recipes = () => {
   setIsLoading(false);
 }, [recipe]) */
 
-  /* if (recipe.error) {
-    setTimeout(() => {
-      console.log("Entre al fin");
-     /*  handleOnClick(); */
-    /*  dispatch(resetRecipe());
-    }, 5000);
-    /* dispatch(loadingAction(true)); */
-   /*
-    console.log(recipe.error);
-    return <div className="recipeDetail"> <h2> El ID ingresado no es valido </h2></div>
-  }else{
-    
+
+
+ /*  function ReenderError() {
+      if(error){console.log(error)
+      console.log("Estoy en el error");
+      setTimeout(() => {
+        console.log("Entre al fin");
+
+        dispatch(setError());
+        handleOnClick();
+
+      }, 2000);
+
+      return <div className="recipeDetail"> <h2>{error} </h2></div>
+    }
+
   } */
+
+
+  /* if (!(error === "")) {
+    console.log("Estoy en el error");
+    setTimeout(() => {
+      console.log("Entre al fin" + (i++));
+
+      dispatch(setError());
+      handleOnClick(); */
+  /*  dispatch(resetRecipe()); */
+  /*  }, 5000); */
+  /* dispatch(loadingAction(true)); */
+  /* 
+      return
+    } */
   // GET current recipes
 
   const indexOfLastRecipe = currentPage * recipesPerPage;
@@ -74,7 +108,7 @@ const Recipes = () => {
   /* console.log("Lo que tiene recipes es:");
   console.log(recipe); */
   /* debugger; */
-  const currentRecipes = recipe.error? null:recipe?.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  const currentRecipes = recipe?.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
   const paginate = (pageNumber) => dispatch(setCurrentPage(pageNumber));
 
@@ -127,16 +161,15 @@ const Recipes = () => {
     <div>
       <Nav searchRecipe={search} sortByTitle={sortByTitle} sortByDiet={sortByDiet} >
       </Nav>
+      {error &&<div className="recipeDetail"> <h2>{error} </h2></div>}
 
-      {recipe.error && <h1>{recipe.error}</h1>}
-      {console.log(showLoading)}
-      {showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />}
+      {error ? null : showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} currentPage={currentPage} />}
       <div className="recipes">
-        {showLoading ? <Loading /> :
+        {error ? null : showLoading ? <Loading /> :
           <RecipeCard recipes={currentRecipes} />}
 
       </div>
-      {showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipe.length} paginate={paginate} currentPage={currentPage} />}
+      {error ? null : showLoading ? null : <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipe.length} paginate={paginate} currentPage={currentPage} />}
     </div>
   );
 };

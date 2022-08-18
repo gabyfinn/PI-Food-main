@@ -8,8 +8,9 @@ export const SET_ERROR = "SET_ERROR";
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const LOADING_ACTION = "LOADING_ACTION";
-export const SEARCH_RECIPE= "SEARCH_RECIPE";
-export const RESET_RECIPE= "RESET_RECIPE";
+export const SEARCH_RECIPE = "SEARCH_RECIPE";
+export const RESET_RECIPE = "RESET_RECIPE";
+
 
 //const URL_GETALL = 'http://localhost:3001/recipes';
 
@@ -22,21 +23,19 @@ export const getAllDiets = () => async (dispatch) => {
     }))
 }
 
-export const getAllRecipes = (title) => async (dispatch) => {
+export const getAllRecipes = (title) => (dispatch) => {
   let url = 'http://localhost:3001/recipes';
   if (title) url = url + `?name=${title}`;
-  return await fetch(url)
+  return fetch(url)
     .then((response) => response.json())
     .then((response) => {
-      
+
       dispatch({
         type: GET_ALL_RECIPES,
         payload: response,
       })
       dispatch(loadingAction(false));
     })
-
-
 
 };
 
@@ -47,7 +46,7 @@ export const getRecipe = (id) => dispatch => {
     .then((response) => dispatch({
       type: GET_RECIPE,
       payload: response,
-    }))
+    }), response => console.log(response))
     .catch((error) => {
       console.log("Existe un error");
       alert(error);
@@ -114,28 +113,79 @@ export const loadingAction = (status) => {
   }
 }
 
-export const resetRecipe = () =>{
-  return{
-    type:RESET_RECIPE,
+export const resetRecipe = () => {
+  return {
+    type: RESET_RECIPE,
+    payload: "",
+  }
+}
+
+export const setError = () => {
+  return {
+    type: SET_ERROR,
     payload:"",
   }
 }
 
-export const searchRecipe = (title) => async (dispatch) => {
+export const searchRecipe = (title) => (dispatch) => {
   let url = 'http://localhost:3001/recipes';
   if (title) url = url + `?name=${title}`;
-  return await fetch(url)
-    .then((response) => response.json())
-    .then((response) => {
-      
-      dispatch({
-        type: SEARCH_RECIPE,
-        payload: response,
-      })
-      dispatch(loadingAction(false));
+  return fetch(url)
+  .then((response) =>{
+    if(response.ok){
+      return response.json()
+    }else{
+      return response.text().then(text => {throw new Error(text)} )
+    }
+    
+  })
+  .then((response) => {
+    dispatch({
+      type: SEARCH_RECIPE,
+      payload: response,
     })
+    dispatch(loadingAction(false));
+  })
+  .catch(error => {
+    console.log(error);
+    dispatch({
+      type: SET_ERROR,
+      payload: error.message,
+    })
+    dispatch(loadingAction(false));
+  })
 
 
 
-};
+  /* then((response) => {
+    if (response.ok) {
+      return response.json()
+    } else {
+      throw response.json()
+    }
+  })
+  .then((response) => {
+    dispatch({
+      type: SEARCH_RECIPE,
+      payload: response,
+    })
+    dispatch(loadingAction(false));
+  })
+  .catch(error => {
+    console.log("Entre al Error");
+    console.log(error);
+    dispatch({
+      type: SET_ERROR,
+      payload: error,
+    })
+    dispatch(loadingAction(false));
+  })
+*/
+
+
+
+
+}
+
+
 
